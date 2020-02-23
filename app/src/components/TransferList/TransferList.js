@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -19,10 +19,22 @@ function intersection(a, b) {
   return a.filter(value => b.indexOf(value) !== -1);
 }
 
-const TransferList = ({ list, classes }) => {
-  const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState([...list]);
-  const [right, setRight] = React.useState([]);
+const TransferList = ({ classes, handleChange, getAuthors }) => {
+  const [checked, setChecked] = useState([]);
+  const [left, setLeft] = useState([]);
+  const [right, setRight] = useState([]);
+  useEffect(() => {
+    async function setAuthors() {
+      const authors = await getAuthors();
+      if (authors) {
+        setLeft(authors);
+      }
+    }
+    setAuthors();
+  }, [getAuthors]);
+  useEffect(() => {
+    handleChange(right);
+  }, [right,handleChange]);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -151,7 +163,6 @@ const TransferList = ({ list, classes }) => {
 };
 
 TransferList.propTypes = {
-  list: PropTypes.array.isRequired,
   classes: PropTypes.shape({
     root: PropTypes.string,
     paper: PropTypes.string,

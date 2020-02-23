@@ -3,84 +3,121 @@ import { Button, Paper, Grid } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import Input from "../common/Input";
 import { isLatinLettersAndDigits, isLatinLetters } from "../../utils";
-
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSubmitDisabled:true,
-      isFormValid: true,
-      inputs: [
-        {
-          name: "login",
-          value: "",
-          error: false,
-          emptyText: `empty`,
-          incorrectText: `incorrect`,
-          errorText: ``,
-          type: "text"
-        },
-        {
-          name: "password",
-          value: "",
-          error: false,
-          emptyText: `empty`,
-          incorrectText: `incorrect`,
-          errorText: ``,
-          type: "password"
-        }
-      ]
+      isSubmitDisabled: true,
+      alert: {
+        show: false,
+        message: ""
+      },
+      login: {
+        name: "login",
+        value: "",
+        error: false,
+        emptyText: `empty`,
+        incorrectText: `incorrect`,
+        errorText: ``,
+        type: "text"
+      },
+      password: {
+        name: "password",
+        value: "",
+        error: false,
+        emptyText: `empty`,
+        incorrectText: `incorrect`,
+        errorText: ``,
+        type: "password"
+      }
     };
   }
 
-  validateField = ({name, value}) => {
-    switch (name){
+  validateField = ({ name, value }) => {
+    switch (name) {
       case "login":
-       return isLatinLetters(value)
+        return isLatinLetters(value);
       case "password":
-       return isLatinLettersAndDigits(value)
+        return isLatinLettersAndDigits(value);
+      default:
+        return;
     }
   };
   submitDisabledChange = () => {
     this.setState({
-      isSubmitDisabled : this.state.inputs[0].error || this.state.inputs[1].error
-    }
-    )
+      isSubmitDisabled: this.state.login.error || this.state.password.error
+    });
+  };
+
+  handleBlur = ({ target: { name, value } }) => {
+    this.setState(prevState => {
+      if (value === "") {
+        return {
+          [name]: {
+            ...prevState[name],
+            error: true,
+            errorText: prevState[name].emptyText
+          }
+        };
+      } else if (!this.validateField({ name, value })) {
+        return {
+          [name]: {
+            ...prevState[name],
+            error: true,
+            errorText: prevState[name].incorrectText
+          }
+        };
+      } else {
+        return { [name]: { ...prevState[name], error: false } };
+      }
+    }, this.submitDisabledChange);
+  };
+
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({
+      [name]: { ...this.state[name], value }
+    });
+  };
+
+  authHandler = async e => {
+    e.preventDefault();
+    const { history, authContext } = this.props;
+    this.hideAlertMessage();
+    authContext
+      .authenticate({
+        login: this.state.login.value,
+        password: this.state.password.value
+      })
+      .then(() => history.push("/courses"))
+      .catch(err => {
+        this.showAlertMessage(err.message);
+        return;
+      });
+  };
+  hideAlertMessage() {
+    this.setState({
+      alert: {
+        show: false
+      }
+    });
   }
-
-  handleBlur = ({target: {name, value}}) => {
+  showAlertMessage(message) {
     this.setState({
-      inputs: [...this.state.inputs.map(input => {
-        if(input.name === name && value === ""){
-          return { ...input, error: true, errorText: input.emptyText  }
-        }
-        else if (input.name === name && !this.validateField({name, value})){
-          return { ...input, error: true, errorText: input.incorrectText } 
-        }
-        else if (input.name === name) {
-          return { ...input, error: false }
-        }
-        else {
-          return { ...input }
-        }
-      })]
-    },this.submitDisabledChange
-    );
-  };
-
-  handleChange = ({target:{name, value}}) => {
-    this.setState({
-      inputs: [...this.state.inputs.map(input => input.name === name ? { ...input, value} : { ...input })]});
-  };
+      alert: {
+        show: true,
+        message
+      }
+    });
+  }
 
   render = () => (
     <Paper>
-      <form noValidate>
+      <form onSubmit={this.authHandler} noValidate>
         <Grid container justify="center" alignItems="center" spacing={3}>
           <Grid item container justify="center">
-            {!this.state.isFormValid && (
+            {this.state.alert.show && (
               <Alert variant="outlined" severity="error">
-                Incorrect login or password
+                {this.state.alert.message}
               </Alert>
             )}
           </Grid>
@@ -92,14 +129,19 @@ class LoginForm extends Component {
             xs={3}
             spacing={0}
           >
-            {this.state.inputs.map(inputData => (
-              <Input
-                inputData={inputData}
-                key={inputData.name}
-                handleChange={this.handleChange}
-                handleBlur={this.handleBlur}
-              />
-            ))}
+            <Input
+              inputData={this.state.login}
+              key={this.state.login.name}
+              handleChange={this.handleChange}
+              handleBlur={this.handleBlur}
+            />
+            <Input
+              inputData={this.state.password}
+              key={this.state.password.name}
+              handleChange={this.handleChange}
+              handleBlur={this.handleBlur}
+            />
+
             <Button
               type="submit"
               variant="contained"
