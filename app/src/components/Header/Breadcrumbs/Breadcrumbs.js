@@ -1,15 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types"
-
-import { Breadcrumbs, Typography, Link } from "@material-ui/core";
-const CustomBreadcrumbs = ({currentCourse}) => (
+import { Link, useLocation} from "react-router-dom"
+import { Breadcrumbs, Typography } from "@material-ui/core";
+const CustomBreadcrumbs = () => {
+  let location = useLocation();
+  const newCourse =  location.pathname === "/courses/new" ? true : false;
+return (
   <Breadcrumbs color="inherit" aria-label="breadcrumb">
-    <Link color="inherit" href="/">
+    <Link to="/courses" color="inherit">
       <Typography>Courses</Typography>
     </Link>
-    <Typography>{currentCourse}</Typography>
+    {newCourse && <Typography>{`course new`}</Typography>}
   </Breadcrumbs>
-);
+)};
 CustomBreadcrumbs.propTypes = {
     currentCourse: PropTypes.string
 }

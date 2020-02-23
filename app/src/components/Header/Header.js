@@ -7,12 +7,6 @@ import LoginStatus from "./LoginStatus";
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userName: "Den2",
-      isAuthorized: true,
-      isBreadcrumbs: true,
-      currentCourse: "course 3"
-    };
     this.classes = props.classes;
   }
   render = () => (
@@ -23,11 +17,11 @@ class Header extends Component {
             <Logo fontSize="large" />
           </Grid>
           <Grid item xs>
-            {this.state.isBreadcrumbs && <Breadcrumbs currentCourse={this.state.currentCourse} />}
+            {this.props.authContext.isAuthenticate && <Breadcrumbs />}
           </Grid>
           <Grid item container xs={2} sm={1} justify={"flex-end"}>
-            {this.state.isAuthorized && (
-              <LoginStatus userName={this.state.userName} />
+            {this.props.authContext.isAuthenticate && (
+              <LoginStatus signout={this.props.authContext.signout} />
             )}
           </Grid>
         </Grid>

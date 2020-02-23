@@ -1,5 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import MinutesToHours from "../common/MinutesToHours";
+import Dialog from "../common/Dialog";
 import {
   Card,
   CardActions,
@@ -9,9 +12,11 @@ import {
   Typography,
   Grid
 } from "@material-ui/core";
+import WithDateFormat from "../common/WithDateFormat";
 
 const CourseItem = ({
-  course: { id, name, duration, date, description }
+  course: { id, name, duration, date, description },
+  handlerClick
 }) => (
   <Card key={id}>
     <Grid container>
@@ -31,14 +36,26 @@ const CourseItem = ({
                   </Typography>
                 </Grid>
                 <Grid item xs>
-                  <Typography key={duration} color="textSecondary">
-                    {duration}
-                  </Typography>
+                  <MinutesToHours
+                    render={convert => (
+                      <Typography key={duration} color="textSecondary">
+                        {convert(duration)}
+                      </Typography>
+                    )}
+                  />
                 </Grid>
                 <Grid item xs={3} md={1} sm={2}>
-                  <Typography key={date} color="textSecondary" component="p">
-                    {date}
-                  </Typography>
+                  <WithDateFormat
+                    render={convert => (
+                      <Typography
+                        key={date}
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {convert(date)}
+                      </Typography>
+                    )}
+                  />
                 </Grid>
               </Grid>
               <Grid item>
@@ -66,14 +83,14 @@ const CourseItem = ({
             spacing={2}
           >
             <Grid item xs>
-              <Button key={"edit"} size="small" color="primary">
-                Edit
-              </Button>
+              <Link to={`/courses/${id}`}>
+                <Button key={"edit"} size="small" color="primary">
+                  Edit
+                </Button>
+              </Link>
             </Grid>
             <Grid item xs>
-              <Button key={"delete"} size="small" color="primary">
-                Delete
-              </Button>
+              <Dialog handleConfirm={() => handlerClick(id)} text={"Delete"} />
             </Grid>
           </Grid>
         </CardActions>
@@ -83,7 +100,7 @@ const CourseItem = ({
 );
 CourseItem.propTypes = {
   course: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     duration: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,

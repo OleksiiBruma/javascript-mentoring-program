@@ -1,20 +1,21 @@
 import React from "react";
-import PropType from "prop-types"
-import { Typography, Button, Grid } from "@material-ui/core";
+import PropType from "prop-types";
+import { Link } from "react-router-dom";
+import { Button, Grid } from "@material-ui/core";
 import { ExitToApp } from "@material-ui/icons";
 
-const LoginStatus = ({ userName }) => (
+const LoginStatus = ({ signout }) => (
   <Grid>
-    <Typography>{userName}</Typography>
-    <Button title={"logout"} color="inherit" size="small">
-      <ExitToApp fontSize="small" />
-    </Button>
+    <Link to="/login">
+      <Button onClick={signout} title={"logout"} color="inherit" size="small">
+        <ExitToApp fontSize="small" />
+      </Button>
+    </Link>
   </Grid>
 );
 
 LoginStatus.propTypes = {
-  userName: PropType.string.isRequired
-}
-
+  signout: PropType.func.isRequired
+};
 
 export default LoginStatus;
