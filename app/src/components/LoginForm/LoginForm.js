@@ -1,39 +1,30 @@
-import React, { Component } from "react";
-import { Button, Paper, Grid } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import React, { useState } from "react";
+import { Button, Grid } from "@material-ui/core";
+import Alert from "../common/Alert";
 import Input from "../common/Input";
 import { isLatinLettersAndDigits, isLatinLetters } from "../../utils";
-class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSubmitDisabled: true,
-      alert: {
-        show: false,
-        message: ""
-      },
-      login: {
-        name: "login",
-        value: "",
-        error: false,
-        emptyText: `empty`,
-        incorrectText: `incorrect`,
-        errorText: ``,
-        type: "text"
-      },
-      password: {
-        name: "password",
-        value: "",
-        error: false,
-        emptyText: `empty`,
-        incorrectText: `incorrect`,
-        errorText: ``,
-        type: "password"
-      }
-    };
-  }
 
-  validateField = ({ name, value }) => {
+const LoginForm = props => {
+  const [login, setLogin] = useState({
+    name: "login",
+    value: "",
+    error: false,
+    emptyText: `required`,
+    incorrectText: `incorrect login`,
+    errorText: ``,
+    type: "text"
+  });
+
+  const [password, setPassword] = useState({
+    name: "password",
+    value: "",
+    error: false,
+    emptyText: `required`,
+    incorrectText: `incorrect password`,
+    errorText: ``,
+    type: "password"
+  });
+  const validateField = ({ name, value }) => {
     switch (name) {
       case "login":
         return isLatinLetters(value);
@@ -43,119 +34,80 @@ class LoginForm extends Component {
         return;
     }
   };
-  submitDisabledChange = () => {
-    this.setState({
-      isSubmitDisabled: this.state.login.error || this.state.password.error
-    });
-  };
 
-  handleBlur = ({ target: { name, value } }) => {
-    this.setState(prevState => {
+  const handleBlur = ({ target: { name, value } }) => {
+    const setNewValue = name === "login" ? setLogin : setPassword;
+    setNewValue(prevState => {
       if (value === "") {
         return {
-          [name]: {
-            ...prevState[name],
-            error: true,
-            errorText: prevState[name].emptyText
-          }
+          ...prevState,
+          error: true,
+          errorText: prevState.emptyText
         };
-      } else if (!this.validateField({ name, value })) {
+      } else if (!validateField({ name, value })) {
         return {
-          [name]: {
-            ...prevState[name],
-            error: true,
-            errorText: prevState[name].incorrectText
-          }
+          ...prevState,
+          error: true,
+          errorText: prevState.incorrectText
         };
       } else {
-        return { [name]: { ...prevState[name], error: false } };
+        return { ...prevState, error: false };
       }
-    }, this.submitDisabledChange);
-  };
-
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({
-      [name]: { ...this.state[name], value }
     });
   };
 
-  authHandler = async e => {
+  const handleChange = ({ target: { name, value } }) => {
+    const setNewValue = name === "login" ? setLogin : setPassword;
+    setNewValue(prevState => ({ ...prevState, value }));
+  };
+
+  const authHandler = async e => {
     e.preventDefault();
-    const { history, authContext } = this.props;
-    this.hideAlertMessage();
-    authContext
-      .authenticate({
-        login: this.state.login.value,
-        password: this.state.password.value
-      })
-      .then(() => history.push("/courses"))
-      .catch(err => {
-        this.showAlertMessage(err.message);
-        return;
-      });
+    const { history } = props;
+    const credentials = { login: login.value, password: password.value };
+    props.login({ credentials, history });
   };
-  hideAlertMessage() {
-    this.setState({
-      alert: {
-        show: false
-      }
-    });
-  }
-  showAlertMessage(message) {
-    this.setState({
-      alert: {
-        show: true,
-        message
-      }
-    });
-  }
-
-  render = () => (
-    <Paper>
-      <form onSubmit={this.authHandler} noValidate>
-        <Grid container justify="center" alignItems="center" spacing={3}>
-          <Grid item container justify="center">
-            {this.state.alert.show && (
-              <Alert variant="outlined" severity="error">
-                {this.state.alert.message}
-              </Alert>
-            )}
-          </Grid>
-          <Grid
-            container
-            justify="center"
-            alignItems="center"
-            item
-            xs={3}
-            spacing={0}
-          >
-            <Input
-              inputData={this.state.login}
-              key={this.state.login.name}
-              handleChange={this.handleChange}
-              handleBlur={this.handleBlur}
-            />
-            <Input
-              inputData={this.state.password}
-              key={this.state.password.name}
-              handleChange={this.handleChange}
-              handleBlur={this.handleBlur}
-            />
-
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="small"
-              disabled={this.state.isSubmitDisabled}
-            >
-              Sign In
-            </Button>
-          </Grid>
+  const isButtonDisabled =
+    !login.value || !password.value || login.error || password.error;
+  return (
+    <form onSubmit={authHandler} noValidate>
+      <Grid container justify="center" alignItems="center" spacing={3}>
+        <Grid item container justify="center">
+          <Alert />
         </Grid>
-      </form>
-    </Paper>
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          item
+          xs={3}
+          spacing={0}
+        >
+          <Input
+            inputData={login}
+            key={login.name}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+          />
+          <Input
+            inputData={password}
+            key={password.name}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="small"
+            disabled={isButtonDisabled}
+          >
+            Sign In
+          </Button>
+        </Grid>
+      </Grid>
+    </form>
   );
-}
+};
 
 export default LoginForm;

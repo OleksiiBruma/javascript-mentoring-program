@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { Button, DialogActions, DialogTitle, Dialog as MUIDialog } from "@material-ui/core";
+import {
+  Button,
+  DialogActions,
+  DialogTitle,
+  Dialog as MUIDialog
+} from "@material-ui/core";
 
-const Dialog = ({ handleConfirm,text }) => {
+const Dialog = ({ handleConfirm, text }) => {
   const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
@@ -18,9 +17,7 @@ const Dialog = ({ handleConfirm,text }) => {
         {text}
       </Button>
       <MUIDialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          {"Are you shure?"}
-        </DialogTitle>
+        <DialogTitle>{"Are you sure?"}</DialogTitle>
         <DialogActions>
           <Button autoFocus onClick={handleConfirm} color="primary">
             Sure
@@ -32,6 +29,6 @@ const Dialog = ({ handleConfirm,text }) => {
       </MUIDialog>
     </div>
   );
-}
+};
 
-export default Dialog
+export default Dialog;

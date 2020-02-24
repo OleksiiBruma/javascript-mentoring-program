@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Paper, InputBase, Divider, IconButton } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 
-const Search = ({ classes: { root, iconButton, divider, input }, valueFiltered, handlerChange, handlerSubmit }) => {
+const Search = ({ classes: { root, iconButton, divider, input }, search }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const handlerChange = ({ target: { value } }) => {
+    setSearchTerm(value);
+  };
+  const handlerSubmit = e => {
+    e.preventDefault();
+    search(searchTerm);
+  };
   return (
     <Paper component="form" onSubmit={handlerSubmit} className={root}>
-      <InputBase className={input} value={valueFiltered} onChange={handlerChange} placeholder="Search courses" />
+      <InputBase
+        className={input}
+        value={searchTerm}
+        onChange={handlerChange}
+        placeholder="Search courses"
+      />
       <IconButton type="submit" className={iconButton}>
         <SearchIcon />
       </IconButton>
@@ -26,9 +39,8 @@ Search.propTypes = {
     root: PropTypes.string.isRequired,
     iconButton: PropTypes.string.isRequired,
     divider: PropTypes.string.isRequired,
-    input: PropTypes.string.isRequired,
-  }
-)
+    input: PropTypes.string.isRequired
+  })
 };
 
 export default Search;

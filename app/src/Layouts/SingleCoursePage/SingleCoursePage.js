@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../components/common/Input";
 import TransferList from "../../components/TransferList";
 import DatePicker from "../../components/DatePicker";
@@ -6,140 +6,82 @@ import { Save, Cancel } from "@material-ui/icons";
 import { Grid, Typography, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import MinutesToHours from "../../components/common/MinutesToHours";
-import CoursesService from "../../services/CoursesService";
-
-class SingleCoursePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showError: false,
-      nameInput: {
-        name: "Name",
-        error: false,
-        errorText: "Please fill in the name",
-        value: "",
-        type: "text"
-      },
-      descriptionInput: {
-        name: "Description",
-        error: false,
-        errorText: "Please fill in the description",
-        value: "",
-        multiline: true,
-        rows: 4,
-        type: "text",
-        variant: "outlined"
-      },
-      dateInput: {
-        value: new Date()
-      },
-      durationInput: {
-        name: "Duration",
-        error: false,
-        errorText: "Please fill in duration",
-        value: 0,
-        type: "number"
-      },
-      authorsInput: ["author 1", "author 2"]
-    };
-  }
-  getAuthors = async () => {
-    const authors = await CoursesService.getAuthors().catch(err => {
-      this.setState({
-        message: err
-      });
-    });
-    if (authors) {
-     return authors
+import { useParams } from "react-router-dom";
+export const SingleCoursePage = ({
+  loadAuthors,
+  allAuthors,
+  history,
+  addCourse,
+  editCourse,
+  currentCourse,
+  loadCourse
+}) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [authors, setAuthors] = useState([]);
+  const [duration, setDuration] = useState(0);
+  const [error, setError] = useState(false);
+  const { id } = useParams();
+  const editCourseView = currentCourse => {
+    if(!currentCourse.id){
+      return
     }
+    const { name, description, date, authors, duration } = currentCourse;
+    setName(name);
+    setDescription(description);
+    setDate(new Date(date));
+    setAuthors([...authors]);
+    setDuration(duration);
   };
 
-  changeNameInput = e => {
-    this.setState({
-      nameInput: { ...this.state.nameInput, value: e.target.value }
-    });
-  };
-  changeDescriptionInput = e => {
-    this.setState({
-      descriptionInput: {
-        ...this.state.descriptionInput,
-        value: e.target.value
-      }
-    });
-  };
-  changeDurationInput = ({ target: { value } }) => {
+  useEffect(() => {
+    editCourseView(currentCourse);
+  }, [currentCourse]);
+  useEffect(() => {
+     loadCourse({ id });
+  }, [id,loadCourse]);
+
+  useEffect(() => {
+    loadAuthors();
+  }, [loadAuthors]);
+
+  const changeNameInput = ({ target: { value } }) => setName(value);
+  const changeDescriptionInput = ({ target: { value } }) =>
+    setDescription(value);
+  const changeDurationInput = ({ target: { value } }) => {
     if (value < 0) {
       return;
     }
-    this.setState({
-      durationInput: {
-        ...this.state.durationInput,
-        value
-      }
-    });
+    setDuration(value);
   };
-  changeDateInput = newValue => {
-    this.setState({ dateInput: { value: newValue } });
-  };
-  addCourse = async e => {
-    const { history } = this.props;
-    e.preventDefault();
-    if (!this.isFormValid()) {
-      return;
-    }
-    const {
-      nameInput: { value: nameValue },
-      descriptionInput: { value: descriptionValue },
-      dateInput: { value: dateValue },
-      durationInput: { value: durationValue },
-      authorsInput
-    } = this.state;
-    const body = {
-      name: nameValue,
-      description: descriptionValue,
-      date: dateValue,
-      duration: durationValue,
-      authors: authorsInput
-    };
-    const newCourse = await CoursesService.addCourse(body).catch(err => {
-      this.setState({
-        message: err
-      });
-    });
-    if(newCourse){
-      history.push("/courses");
-    }
-  };
-  isFormValid = () => {
-    const {
-      nameInput,
-      descriptionInput,
-      durationInput,
-      authorsInput
-    } = this.state;
+  const changeDateInput = date => setDate(date);
 
-    const status =
-      nameInput.value !== "" &&
-      descriptionInput.value !== "" &&
-      durationInput.value > 0 &&
-      authorsInput.length;
-
-    this.setState({
-      showError: !status
-    });
-    return status;
+  const isFormValid = () => {
+    setError("");
+    return name !== "" && description !== "" && duration > 0 && authors.length;
   };
-  onCancel = e => {
+  const onCancel = e => {
     e.preventDefault();
-    const { history } = this.props;
     history.push("/courses");
   };
-  updateAuthors = value => {
-    this.setState({
-      authorsInput: value
-    });
+  const updateAuthors = value => setAuthors(value);
+  const handlerSubmit = e => {
+    e.preventDefault();
+    if (!isFormValid()) {
+      setError(true);
+      return;
+    }
+    const body = {
+      name,
+      description,
+      date,
+      duration,
+      authors
+    };
+    addCourse({ body, history });
   };
-  render = () => (
+  return (
     <form>
       <Grid container justify={"center"}>
         <Grid
@@ -150,55 +92,59 @@ class SingleCoursePage extends Component {
           spacing={0}
           alignItems={"flex-start"}
         >
-          {this.state.showError && (
+          {error && (
             <Alert variant="outlined" severity="error">
               {"Please fill in all fields"}
             </Alert>
           )}
           <Grid item>
             <Input
-              inputData={this.state.nameInput}
-              handleChange={this.changeNameInput}
-              handleBlur={() => {}}
+              inputData={{
+                name: "Name",
+                value: name,
+                type: "text"
+              }}
+              handleChange={changeNameInput}
             />
           </Grid>
           <Grid item>
             <Input
-              inputData={this.state.descriptionInput}
-              handleChange={this.changeDescriptionInput}
-              handleBlur={() => {}}
+              inputData={{
+                name: "Description",
+                value: description,
+                multiline: true,
+                rows: 4,
+                type: "text",
+                variant: "outlined"
+              }}
+              handleChange={changeDescriptionInput}
             />
           </Grid>
           <Grid item container alignItems={"center"}>
             <Grid item xs={2}>
               <Input
-                inputData={this.state.durationInput}
-                handleChange={this.changeDurationInput}
-                handleBlur={() => {}}
+                inputData={{
+                  name: "Duration",
+                  value: duration,
+                  type: "number"
+                }}
+                handleChange={changeDurationInput}
               />
             </Grid>
             <Grid item>
               <MinutesToHours
-                render={convert => (
-                  <Typography>
-                    {convert(this.state.durationInput.value)}
-                  </Typography>
-                )}
+                render={convert => <Typography>{convert(duration)}</Typography>}
               />
             </Grid>
           </Grid>
           <Grid item>
-            <DatePicker
-              value={this.state.dateInput.value}
-              handleChange={this.changeDateInput}
-              handleBlur={() => {}}
-            />
+            <DatePicker value={date} handleChange={changeDateInput} />
           </Grid>
           <Grid item>
             <TransferList
-              list={this.state.authorsList}
-              handleChange={this.updateAuthors}
-              getAuthors = {this.getAuthors}
+              handleChange={updateAuthors}
+              defaultList={allAuthors}
+              chosenList={authors}
             />
           </Grid>
         </Grid>
@@ -209,7 +155,7 @@ class SingleCoursePage extends Component {
               title={"save"}
               color="primary"
               size="large"
-              onClick={e => this.addCourse(e, this.props.history)}
+              onClick={handlerSubmit}
             >
               <Save fontSize="small" /> Save
             </Button>
@@ -220,7 +166,7 @@ class SingleCoursePage extends Component {
               title={"cancel"}
               color="secondary"
               size="large"
-              onClick={this.onCancel}
+              onClick={onCancel}
             >
               <Cancel fontSize="small" /> Cancel
             </Button>
@@ -229,6 +175,6 @@ class SingleCoursePage extends Component {
       </Grid>
     </form>
   );
-}
+};
 
 export default SingleCoursePage;

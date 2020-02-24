@@ -29,8 +29,8 @@ CustomInput.propTypes = {
   inputData: PropTypes.shape(
     {
       name: PropTypes.string.isRequired,
-      error: PropTypes.bool.isRequired,
-      errorText: PropTypes.string.isRequired,
+      error: PropTypes.bool,
+      errorText: PropTypes.string,
       type: PropTypes.string.isRequired,
       value: PropTypes.oneOfType([
         PropTypes.string,
@@ -40,7 +40,7 @@ CustomInput.propTypes = {
     }
   ),
   handleChange : PropTypes.func.isRequired,
-  handleBlur : PropTypes.func.isRequired,
+  handleBlur : PropTypes.func,
 }
 
 

@@ -8,9 +8,9 @@ const CustomBreadcrumbs = () => {
 return (
   <Breadcrumbs color="inherit" aria-label="breadcrumb">
     <Link to="/courses" color="inherit">
-      <Typography>Courses</Typography>
+      <Typography>courses</Typography>
     </Link>
-    {newCourse && <Typography>{`course new`}</Typography>}
+    {newCourse && <Typography>{`new course`}</Typography>}
   </Breadcrumbs>
 )};
 CustomBreadcrumbs.propTypes = {

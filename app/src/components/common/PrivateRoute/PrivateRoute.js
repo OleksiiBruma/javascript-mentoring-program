@@ -2,10 +2,7 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
 const PrivateRoute = ({ children, ...props }) => {
-  const {
-    authContext: { isAuthenticate },
-   path 
-  } = props;
+  const { isAuthenticate, path } = props;
   return (
     <Route
       {...props}

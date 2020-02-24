@@ -19,22 +19,24 @@ function intersection(a, b) {
   return a.filter(value => b.indexOf(value) !== -1);
 }
 
-const TransferList = ({ classes, handleChange, getAuthors }) => {
+const TransferList = ({
+  classes,
+  handleChange,
+  defaultList,
+  chosenList
+}) => {
   const [checked, setChecked] = useState([]);
   const [left, setLeft] = useState([]);
   const [right, setRight] = useState([]);
-  useEffect(() => {
-    async function setAuthors() {
-      const authors = await getAuthors();
-      if (authors) {
-        setLeft(authors);
-      }
-    }
-    setAuthors();
-  }, [getAuthors]);
+  useEffect(()=>{
+    setLeft(defaultList)
+  }, [defaultList])
   useEffect(() => {
     handleChange(right);
-  }, [right,handleChange]);
+  }, [right, handleChange]);
+  useEffect(()=>{
+    setRight(chosenList)
+  },[chosenList])
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);

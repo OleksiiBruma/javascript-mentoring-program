@@ -7,11 +7,11 @@
   ],
   "courses": [
     {
-      "id": "461c5930-526c-11ea-84a5-ede0b1d41e27",
-      "name": "sdfsdfhsfhdfh",
+      "id": "9194cd00-5426-11ea-84a5-ede0b1d41e27",
+      "name": "sdfsdf",
       "description": "sdfsdf",
-      "date": "2020-02-18T16:32:25.804Z",
-      "duration": "323234",
+      "date": "2020-02-20T21:18:32.722Z",
+      "duration": "3",
       "authors": [
         "Esther Kamatari",
         "Patricia Aakhus",
@@ -22,44 +22,26 @@
       ]
     },
     {
-      "id": "16d293e0-5336-11ea-84a5-ede0b1d41e27",
-      "name": "react",
-      "description": "sdgsdgsdf",
-      "date": "2020-02-19T16:36:52.227Z",
-      "duration": "1232",
-      "authors": [
-        "Esther Kamatari",
-        "Patricia Aakhus"
-      ]
-    },
-    {
-      "id": "b83da9d0-5341-11ea-84a5-ede0b1d41e27",
-      "name": "react",
-      "description": "1231",
-      "date": "2020-02-19T18:00:15.844Z",
-      "duration": "123123",
-      "authors": [
-        "Esther Kamatari",
-        "Patricia Aakhus"
-      ]
-    },
-    {
-      "id": "e7e98810-5342-11ea-84a5-ede0b1d41e27",
-      "name": "tgfhfgh",
-      "description": "fghfgh",
-      "date": "2020-02-19T18:08:37.162Z",
+      "id": "4f2cbfb0-5695-11ea-9dee-1f5f95ba71ba",
+      "name": "bjkfjbksdfjkbsdf",
+      "description": "kjbsdjbkfsjdbf",
+      "date": "2020-02-23T23:36:15.278Z",
       "duration": "10",
       "authors": [
         "Esther Kamatari",
-        "Patricia Aakhus"
+        "Patricia Aakhus",
+        "Hans Aanrud",
+        "David Aaron",
+        "Rachel Aaron",
+        "Ben Aaronovitch "
       ]
     },
     {
-      "id": "9194cd00-5426-11ea-84a5-ede0b1d41e27",
-      "name": "sdfsdf",
-      "description": "sdfsdf",
-      "date": "2020-02-20T21:18:32.722Z",
-      "duration": "3",
+      "id": "6b8b0450-5695-11ea-9dee-1f5f95ba71ba",
+      "name": "bhsdjf",
+      "description": "kjsdfsdf",
+      "date": "2020-02-23T23:37:03.967Z",
+      "duration": "6",
       "authors": [
         "Esther Kamatari",
         "Patricia Aakhus",

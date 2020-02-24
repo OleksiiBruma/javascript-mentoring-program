@@ -1,4 +1,17 @@
 import Header from "./Header.js";
-import withAuthContext from "../../services/AuthService/withAuthContext"
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { logout } from "../../actions";
+import { withRouter } from "react-router-dom";
 
-export default withAuthContext(Header);
+export default compose(
+  connect(
+    state => ({
+      isAuthenticate: state.authenticate
+    }),
+    dispatch => ({
+      logout: (payload) => dispatch(logout(payload))
+    })
+  ),
+  withRouter
+)(Header);

@@ -1,4 +1,8 @@
 import PrivateRoute from "./PrivateRoute";
-import withAuthContext from "../../../services/AuthService/withAuthContext"
+import { connect } from "react-redux";
 
-export default withAuthContext(PrivateRoute);
+export default connect(state => ({
+  isAuthenticate: state.authenticate
+}),
+null)
+(PrivateRoute);
