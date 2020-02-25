@@ -2,7 +2,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import SingleCoursePage from "./SingleCoursePage";
 import { withRouter } from "react-router-dom";
-import { loadAuthors, addCourse, editCourse, loadCourseById } from "../../actions";
+import { loadAuthors, addCourse, editCourse, loadCourseById, resetEditCourse } from "../../actions";
 export default compose(
   connect(
     state => ({
@@ -13,7 +13,8 @@ export default compose(
       loadAuthors: () => dispatch(loadAuthors()),
       addCourse: payload => dispatch(addCourse(payload)),
       editCourse: payload => dispatch(editCourse(payload)),
-      loadCourse: payload => dispatch(loadCourseById(payload))
+      loadCourse: payload => dispatch(loadCourseById(payload)),
+      resetEditCourse : () => dispatch(resetEditCourse())
     })
   ),
   withRouter

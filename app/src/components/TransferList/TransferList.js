@@ -25,18 +25,13 @@ const TransferList = ({
   defaultList,
   chosenList
 }) => {
+  const diffList = defaultList.filter(x => !chosenList.includes(x));
   const [checked, setChecked] = useState([]);
-  const [left, setLeft] = useState([]);
-  const [right, setRight] = useState([]);
-  useEffect(()=>{
-    setLeft(defaultList)
-  }, [defaultList])
+  const [left, setLeft] = useState([...diffList]);
+  const [right, setRight] = useState([...chosenList]);
   useEffect(() => {
     handleChange(right);
-  }, [right, handleChange]);
-  useEffect(()=>{
-    setRight(chosenList)
-  },[chosenList])
+  }, [right]);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);

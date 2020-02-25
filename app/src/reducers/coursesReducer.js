@@ -2,11 +2,17 @@ import {
   LOAD_COURSES_SUCCESS,
   DELETE_COURSE_SUCCESS,
   SEARCH_COURSES,
-  LOAD_EDIT_COURSE_SUCCESS
+  LOAD_EDIT_COURSE_SUCCESS,
+  RESET_EDIT_COURSE
 } from "../actions/actionTypes";
 
 export default (
-  state = { all: [], visible: [], filtered: false, editCourse: {} },
+  state = {
+    all: [],
+    visible: [],
+    filtered: false,
+    editCourse: { name: "new" }
+  },
   { type, payload }
 ) => {
   switch (type) {
@@ -29,6 +35,8 @@ export default (
         filtered: true,
         visible: state.all.filter(course => course.name.includes(payload))
       };
+      case RESET_EDIT_COURSE:
+        return { ...state, editCourse: { name: "new" }};
     default:
       return state;
   }

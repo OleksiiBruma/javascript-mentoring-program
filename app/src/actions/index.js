@@ -12,7 +12,8 @@ import {
   LOGOUT_SUCCESS,
   RESET_ERROR,
   AUTHORS_SUCCESS,
-  AUTHORS_ERROR
+  AUTHORS_ERROR,
+  RESET_EDIT_COURSE
 } from "./actionTypes";
 
 import {
@@ -75,6 +76,7 @@ export const authorsError = payload => ({
 export const showLoader = () => ({ type: SHOW_LOADER });
 export const hideLoader = () => ({ type: HIDE_LOADER });
 export const resetError = () => ({ type: RESET_ERROR });
+export const resetEditCourse = () => ({type : RESET_EDIT_COURSE})
 
 export const loadCourses = () => async dispatch => {
   dispatch(resetError());
@@ -169,8 +171,11 @@ export const editCourse = payload => async dispatch => {
   dispatch(showLoader());
   dispatch(resetError());
   try {
-    const response = await editCourseAPI(body, id);
-    const id = await response.json();
+    const response = await editCourseAPI({body, id});
+    const courseId = await response.json();
+    if(!courseId){
+      throw new Error('Unable to edit course, please try again')
+    }
     history.push("/courses");
   } catch (error) {
     dispatch(hideLoader());
@@ -184,6 +189,7 @@ export const loadCourseById = payload => async dispatch => {
     const response = await getCourseByIdAPI(id);
     const course = await response.json();
     dispatch(loadEditCourseSuccess(course));
+    dispatch(hideLoader());
   } catch (error) {
     dispatch(hideLoader());
   }

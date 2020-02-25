@@ -13,8 +13,8 @@ export const addCourseAPI = async body =>
     },
     body: JSON.stringify(body)
   });
-export const editCourseAPI = async (body, id) =>
-  await fetch(`${baseCoursesUrl}`, {
+export const editCourseAPI = async ({body, id}) =>
+  await fetch(`${baseCoursesUrl}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json;charset=utf-8"
