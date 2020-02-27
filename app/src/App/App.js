@@ -8,25 +8,28 @@ import CoursesPage from "../Layouts/CoursesPage";
 
 function App() {
   return (
-    <Base>
       <Switch>
         <PrivateRoute path="/login">
-          <LoginPage />
+          <Base>
+            <LoginPage />
+          </Base>
         </PrivateRoute>
         <PrivateRoute path="/courses/:id">
-          <SingleCoursePage />
-        </PrivateRoute>
-        <PrivateRoute path="/courses/new">
-          <SingleCoursePage />
+          <Base>
+            <SingleCoursePage />
+          </Base>
         </PrivateRoute>
         <PrivateRoute path="/courses">
-          <CoursesPage />
+          <Base>
+            <CoursesPage />
+          </Base>
         </PrivateRoute>
         <PrivateRoute path="/">
-          <CoursesPage />
+          <Base>
+            <CoursesPage />
+          </Base>
         </PrivateRoute>
       </Switch>
-    </Base>
   );
 }
 

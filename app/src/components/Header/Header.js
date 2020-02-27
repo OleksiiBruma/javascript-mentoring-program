@@ -1,15 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import { Toolbar, AppBar, Grid } from "@material-ui/core";
 import Logo from "./Logo";
 import Breadcrumbs from "./Breadcrumbs";
 import LoginStatus from "./LoginStatus";
+import { useParams, useHistory } from "react-router-dom";
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.classes = props.classes;
-  }
-  render = () => (
+const Header = ({ isAuthenticate, logout, currentCourseName }) => {
+  const { id } = useParams();
+  const history = useHistory();
+  const formView = id ? true : false;
+  return (
     <AppBar position={"static"}>
       <Toolbar>
         <Grid container alignItems={"center"}>
@@ -17,17 +17,21 @@ class Header extends Component {
             <Logo fontSize="large" />
           </Grid>
           <Grid item xs>
-            {this.props.authContext.isAuthenticate && <Breadcrumbs />}
+            {isAuthenticate && (
+              <Breadcrumbs
+                currentCourseName={formView ? currentCourseName : false}
+              />
+            )}
           </Grid>
           <Grid item container xs={2} sm={1} justify={"flex-end"}>
-            {this.props.authContext.isAuthenticate && (
-              <LoginStatus signout={this.props.authContext.signout} />
+            {isAuthenticate && (
+              <LoginStatus logout={() => logout({ history })} />
             )}
           </Grid>
         </Grid>
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 export default Header;
