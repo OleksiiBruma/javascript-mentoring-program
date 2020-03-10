@@ -1,77 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { useForm } from "../../hooks";
 import Input from "../../components/common/Input";
 import TransferList from "../../components/TransferList";
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "../../components/common/DatePicker";
 import { Save, Cancel } from "@material-ui/icons";
 import { Grid, Typography, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import MinutesToHours from "../../components/common/MinutesToHours";
-import { useParams } from "react-router-dom";
-export const SingleCoursePage = ({
-  loadAuthors,
-  allAuthors,
-  history,
-  addCourse,
-  editCourse,
-  currentCourse,
-  loadCourse,
-  resetEditCourse
-}) => {
-  const initialState = {
-    name: "",
-    description: "",
-    date: new Date(),
-    authors: [],
-    duration: 0,
-    error: false
+export const SingleCoursePage = ({ addCourse, editCourse }) => {
+  const history = useHistory();
+  const goToCourses = () => {
+    history.push("/courses");
   };
-
-  const [form, setForm] = useState({ ...initialState });
-  const [showTransferList, setShowTransferList] = useState(false);
-
-  const { id } = useParams();
-  const editView = id === "new" ? false : true;
-  const { id: currentCourseId } = currentCourse;
-  const editCourseView = currentCourse => {
-    if (!currentCourse.id) {
-      return;
-    }
-    setForm({ ...form, ...currentCourse, date: new Date(currentCourse.date) });
-    setShowTransferList(true);
-  };
-  useEffect(() => {
-    return resetEditCourse;
-  }, []);
-  useEffect(() => {
-    loadAuthors();
-  }, []);
-  useEffect(() => {
-    ShowTransferList();
-  }, [allAuthors, form.authors, currentCourseId]);
-  useEffect(() => {
-    if (editView) {
-      prepareCourse();
-    }
-  }, [currentCourseId]);
+  const [form, setForm] = useForm();
   const handleChangeInput = ({ target: { value, name } }) => {
     if (typeof value === "number" && value < 0) {
       return;
     }
     setForm({ ...form, [name]: value });
-  };
-  const ShowTransferList = () => {
-    if (editView && currentCourseId) {
-      allAuthors.length > 0 &&
-        form.authors.length > 0 &&
-        setShowTransferList(true);
-    }
-    if (!editView) {
-      allAuthors.length > 0 && setShowTransferList(true);
-    }
-  };
-  const prepareCourse = () => {
-    loadCourse({ id });
-    editCourseView(currentCourse);
   };
   const handleChangeDate = date => setForm({ ...form, date: date });
   const handleChangeAuthors = value => setForm({ ...form, authors: value });
@@ -83,12 +30,13 @@ export const SingleCoursePage = ({
       form.description !== "" &&
       form.duration > 0 &&
       form.authors.length;
-    !status && setForm({ ...form, error: true });
+    !status &&
+      setForm({ ...form, error: true, errorText: "Please fill in all fields" });
     return status;
   };
   const onCancel = e => {
     e.preventDefault();
-    history.push("/courses");
+    goToCourses();
   };
   const handlerSubmit = e => {
     e.preventDefault();
@@ -103,8 +51,8 @@ export const SingleCoursePage = ({
       authors: form.authors
     };
 
-    editView
-      ? editCourse({ body, history, id: currentCourseId })
+    form.editView
+      ? editCourse({ body, history, id: form.id })
       : addCourse({ body, history });
   };
   return (
@@ -120,7 +68,7 @@ export const SingleCoursePage = ({
         >
           {form.error && (
             <Alert variant="outlined" severity="error">
-              {"Please fill in all fields"}
+              {form.errorText}
             </Alert>
           )}
           <Grid item>
@@ -169,13 +117,10 @@ export const SingleCoursePage = ({
             <DatePicker value={form.date} handleChange={handleChangeDate} />
           </Grid>
           <Grid item>
-            {showTransferList && (
-              <TransferList
-                handleChange={handleChangeAuthors}
-                defaultList={allAuthors}
-                chosenList={form.authors}
-              />
-            )}
+            <TransferList
+              handleChange={handleChangeAuthors}
+              chosenList={form.authors}
+            />
           </Grid>
         </Grid>
         <Grid container justify={"center"} spacing={5}>

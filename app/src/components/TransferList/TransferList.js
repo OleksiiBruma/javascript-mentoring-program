@@ -22,16 +22,22 @@ function intersection(a, b) {
 const TransferList = ({
   classes,
   handleChange,
-  defaultList,
-  chosenList
+  chosenList,
+  loadInitialList,
+  initialList
 }) => {
-  const diffList = defaultList.filter(x => !chosenList.includes(x));
   const [checked, setChecked] = useState([]);
-  const [left, setLeft] = useState([...diffList]);
-  const [right, setRight] = useState([...chosenList]);
+  const [left, setLeft] = useState([]);
+  const [right, setRight] = useState([]);
+
   useEffect(() => {
-    handleChange(right);
-  }, [right]);
+    loadInitialList();
+  }, [loadInitialList]);
+
+  useEffect(() => {
+    setLeft(not(initialList, chosenList));
+    setRight(chosenList);
+  }, [initialList, chosenList]);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -51,11 +57,13 @@ const TransferList = ({
 
   const handleAllRight = () => {
     setRight(right.concat(left));
+    handleChange(right.concat(left));
     setLeft([]);
   };
 
   const handleCheckedRight = () => {
     setRight(right.concat(leftChecked));
+    handleChange(right.concat(leftChecked));
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
   };
@@ -63,12 +71,14 @@ const TransferList = ({
   const handleCheckedLeft = () => {
     setLeft(left.concat(rightChecked));
     setRight(not(right, rightChecked));
+    handleChange(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
   };
 
   const handleAllLeft = () => {
     setLeft(left.concat(right));
     setRight([]);
+    handleChange([]);
   };
 
   const customList = items => (
