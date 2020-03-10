@@ -1,7 +1,7 @@
 import { baseUrl, KEY } from "../utils/constants";
 
-const isLoggedInAPI = !!localStorage.getItem(KEY);
-const loginAPI = async body =>
+export const isLoggedInAPI = !!localStorage.getItem(KEY);
+export const loginAPI = async body =>
   await fetch(`${baseUrl}/api/login`, {
     method: "POST",
     headers: {
@@ -9,6 +9,5 @@ const loginAPI = async body =>
     },
     body: JSON.stringify(body)
   });
-const saveLoginStateAPI = () => localStorage.setItem(KEY, true);
-const logoutAPI = () => localStorage.removeItem(KEY);
-export { isLoggedInAPI, loginAPI, saveLoginStateAPI, logoutAPI };
+export const saveLoginStateAPI = () => localStorage.setItem(KEY, true);
+export const logoutAPI = () => localStorage.removeItem(KEY);
