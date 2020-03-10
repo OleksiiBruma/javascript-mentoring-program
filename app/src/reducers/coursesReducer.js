@@ -1,7 +1,7 @@
 import {
   LOAD_COURSES_SUCCESS,
   DELETE_COURSE_SUCCESS
-} from "../actions/actionTypes";
+} from "../constants/actionTypes";
 import { List } from "immutable";
 export default (state =  List([]), { type, payload }) => {
   switch (type) {

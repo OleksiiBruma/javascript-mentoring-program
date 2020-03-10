@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../actions/actionTypes";
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../constants/actionTypes";
 import { isLoggedInAPI } from "../api";
 
 export default (state = isLoggedInAPI, { type }) => {
