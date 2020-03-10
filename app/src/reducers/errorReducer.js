@@ -4,7 +4,7 @@ import {
   LOAD_COURSES_ERROR
 } from "../constants/actionTypes";
 
-export default (state = null, { type, payload }) => {
+export default (state = "", { type, payload }) => {
   switch (type) {
     case LOGIN_ERROR:
       return payload;
