@@ -1,7 +1,7 @@
 import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../actions/actionTypes";
-import { isLoggedInAPI } from "../services";
+import { isLoggedInAPI } from "../api";
 
-export default (state = isLoggedInAPI, { type, payload }) => {
+export default (state = isLoggedInAPI, { type }) => {
   switch (type) {
     case LOGIN_SUCCESS:
       return true;

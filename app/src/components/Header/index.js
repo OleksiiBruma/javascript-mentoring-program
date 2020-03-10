@@ -6,8 +6,7 @@ import { logout } from "../../actions";
 export default compose(
   connect(
     state => ({
-      isAuthenticate: state.authenticate,
-      currentCourseName: state.courses.editCourse.name
+      isAuthenticate: state.authenticate
     }),
     dispatch => ({
       logout: (payload) => dispatch(logout(payload))

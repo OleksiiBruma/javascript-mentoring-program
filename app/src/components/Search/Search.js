@@ -5,14 +5,18 @@ import { Paper, InputBase, Divider, IconButton } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 
-const Search = ({ classes: { root, iconButton, divider, input }, search }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+const Search = ({
+  classes: { root, iconButton, divider, input },
+  filterTerm,
+  changeFilterTerm
+}) => {
+  const [searchTerm, setSearchTerm ] = useState(filterTerm);
   const handlerChange = ({ target: { value } }) => {
     setSearchTerm(value);
   };
   const handlerSubmit = e => {
     e.preventDefault();
-    search(searchTerm);
+    changeFilterTerm(searchTerm);
   };
   return (
     <Paper component="form" onSubmit={handlerSubmit} className={root}>

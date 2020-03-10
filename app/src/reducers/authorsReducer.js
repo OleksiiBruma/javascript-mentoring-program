@@ -1,9 +1,9 @@
 import { AUTHORS_SUCCESS } from "../actions/actionTypes";
-
-export default (state = [], { type, payload }) => {
+import { List } from 'immutable';  
+export default (state = List([]), { type, payload }) => {
   switch (type) {
     case AUTHORS_SUCCESS:
-      return payload;
+      return List(payload);
     default:
       return state;
   }

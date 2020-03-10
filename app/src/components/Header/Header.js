@@ -3,12 +3,14 @@ import { Toolbar, AppBar, Grid } from "@material-ui/core";
 import Logo from "./Logo";
 import Breadcrumbs from "./Breadcrumbs";
 import LoginStatus from "./LoginStatus";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useForm } from "../../hooks";
 
-const Header = ({ isAuthenticate, logout, currentCourseName }) => {
-  const { id } = useParams();
+const Header = ({ isAuthenticate, logout }) => {
+  const [form] = useForm();
+  const currentCourseName = form.name;
   const history = useHistory();
-  const formView = id ? true : false;
+  const formView = form.id ? true : false;
   return (
     <AppBar position={"static"}>
       <Toolbar>

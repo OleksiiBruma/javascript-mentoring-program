@@ -1,32 +1,29 @@
 import {
   LOAD_COURSES_SUCCESS,
   LOAD_COURSES_ERROR,
-  LOAD_EDIT_COURSE_SUCCESS,
   DELETE_COURSE_SUCCESS,
   DELETE_COURSE_ERROR,
-  SEARCH_COURSES,
   SHOW_LOADER,
   HIDE_LOADER,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT_SUCCESS,
   RESET_ERROR,
+  SET_FILTER_TERM,
   AUTHORS_SUCCESS,
-  AUTHORS_ERROR,
-  RESET_EDIT_COURSE
+  AUTHORS_ERROR
 } from "./actionTypes";
 
 import {
   deleteCourseByIdAPI,
   getCoursesAPI,
-  getCourseByIdAPI,
   loginAPI,
   saveLoginStateAPI,
   logoutAPI,
   getAuthorsAPI,
   addCourseAPI,
   editCourseAPI
-} from "../services";
+} from "../api";
 
 export const loadCoursesSuccess = payload => ({
   type: LOAD_COURSES_SUCCESS,
@@ -34,14 +31,6 @@ export const loadCoursesSuccess = payload => ({
 });
 export const loadCoursesError = payload => ({
   type: LOAD_COURSES_ERROR,
-  payload
-});
-export const loadEditCourseSuccess = payload => ({
-  type: LOAD_EDIT_COURSE_SUCCESS,
-  payload
-})
-export const searchCourses = payload => ({
-  type: SEARCH_COURSES,
   payload
 });
 export const deleteCourseSuccess = payload => ({
@@ -64,6 +53,10 @@ export const logoutSuccess = payload => ({
   type: LOGOUT_SUCCESS,
   payload
 });
+export const setFilterTerm = payload => ({
+  type: SET_FILTER_TERM,
+  payload
+})
 export const authorsSuccess = payload => ({
   type: AUTHORS_SUCCESS,
   payload
@@ -72,11 +65,9 @@ export const authorsError = payload => ({
   type: AUTHORS_ERROR,
   payload
 });
-
 export const showLoader = () => ({ type: SHOW_LOADER });
 export const hideLoader = () => ({ type: HIDE_LOADER });
 export const resetError = () => ({ type: RESET_ERROR });
-export const resetEditCourse = () => ({type : RESET_EDIT_COURSE})
 
 export const loadCourses = () => async dispatch => {
   dispatch(resetError());
@@ -135,7 +126,6 @@ export const logout = payload => async dispatch => {
   dispatch(hideLoader());
   history.push("/login");
 };
-
 export const loadAuthors = () => async dispatch => {
   dispatch(showLoader());
   dispatch(resetError());
@@ -149,7 +139,6 @@ export const loadAuthors = () => async dispatch => {
     dispatch(hideLoader());
   }
 };
-
 export const addCourse = payload => async dispatch => {
   const { body, history } = payload;
   dispatch(showLoader());
@@ -177,19 +166,6 @@ export const editCourse = payload => async dispatch => {
       throw new Error('Unable to edit course, please try again')
     }
     history.push("/courses");
-  } catch (error) {
-    dispatch(hideLoader());
-  }
-};
-export const loadCourseById = payload => async dispatch => {
-  const { id } = payload;
-  dispatch(showLoader());
-  dispatch(resetError());
-  try {
-    const response = await getCourseByIdAPI(id);
-    const course = await response.json();
-    dispatch(loadEditCourseSuccess(course));
-    dispatch(hideLoader());
   } catch (error) {
     dispatch(hideLoader());
   }
