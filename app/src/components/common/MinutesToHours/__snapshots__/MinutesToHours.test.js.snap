@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`return seconds converted to hours 1`] = `"00:55:33"`;
