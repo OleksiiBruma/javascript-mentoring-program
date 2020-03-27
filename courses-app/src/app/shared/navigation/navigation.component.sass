@@ -1,0 +1,59 @@
+.nav
+    border: 1px solid black
+    padding: 20px
+    min-height: 85px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    border-radius: 3px
+    &__auth
+        display: flex
+        flex-direction: column
+        align-self: flex-start
+.logo
+    width: 60px
+    height: 60px
+    border: 1px solid black
+    position: relative
+    &:before
+        position: absolute
+        top: 0
+        left: 0
+        transform-origin: left
+        transform: rotate(45deg) 
+        content: ""
+        display: flex
+        border-top: 1px solid black
+        width: 84px
+        animation: spin-left 6s cubic-bezier(.8, 0, .2, 1) infinite
+    &:after
+        position: absolute
+        top: 0
+        left: -24px
+        transform-origin: right
+        transform: rotate(-45deg)
+        content: ""
+        display: flex
+        border-top: 1px solid black
+        width: 84px
+        animation: spin-right 6s cubic-bezier(.8, 0, .2, 1) infinite
+    &__title
+        font-weight: 800
+        font-size: 33px
+        margin-left: 20px
+        margin-right: auto
+@keyframes spin-left
+    50% 
+        transform: rotate(180deg) 
+    100%  
+        transform: rotate(45deg) 
+@keyframes spin-right
+    50% 
+        transform: rotate(405deg) 
+    80% 
+        transform: rotate(50deg)     
+    100%  
+        transform: rotate(-45deg) 
+  
+  
+
