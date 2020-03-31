@@ -7,6 +7,7 @@ import { LoginComponent } from "./pages/login/login.component";
 import { CoursesComponent } from "./pages/courses/courses.component";
 import { EditCourseComponent } from "./pages/edit-course/edit-course.component";
 import { SharedModule } from "./shared/shared.module";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { SharedModule } from "./shared/shared.module";
     CoursesComponent,
     EditCourseComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, SharedModule],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, NoopAnimationsModule],
   providers: [],
   bootstrap: [AppComponent]
 })

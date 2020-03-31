@@ -1,16 +1,16 @@
 <section class="course-card">
   <div class="course-card__information-wrapper">
     <div class="course-card__information">
-      <h2 class="course-card__title">Title</h2>
-      <span class="course-card__duration">1 hour</span>
-      <span class="course-card__date">date</span>
+      <h2 class="course-card__title">{{ course.title }}</h2>
+      <span class="course-card__duration">{{ course.duration }}</span>
+      <span class="course-card__date">{{ course.date }}</span>
     </div>
     <p class="course-card__description">
-      description;dkjfsdjf sdf jsd fljsdhf sdifb siudf
+      {{ course.description }}
     </p>
   </div>
   <div class="course-card__actions">
     <button class="btn">Edit course</button>
-    <button class="btn">Delete course</button>
+    <app-dialog [buttonText]="buttonText"> </app-dialog>
   </div>
 </section>

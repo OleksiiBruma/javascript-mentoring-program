@@ -4,20 +4,23 @@ import { CourseListComponent } from "./course-list/course-list.component";
 import { CourseCardComponent } from "./course-card/course-card.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 import { FooterComponent } from "./footer/footer.component";
+import { DialogComponent } from "./dialog/dialog.component";
 
 @NgModule({
   declarations: [
     CourseListComponent,
     CourseCardComponent,
     NavigationComponent,
-    FooterComponent
+    FooterComponent,
+    DialogComponent
   ],
   imports: [CommonModule],
   exports: [
     CourseListComponent,
     CourseCardComponent,
     NavigationComponent,
-    FooterComponent
+    FooterComponent,
+    DialogComponent
   ]
 })
 export class SharedModule {}

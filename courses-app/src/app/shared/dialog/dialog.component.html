@@ -1,0 +1,12 @@
+<button class="btn" (click)="onClick()">{{ buttonText }}</button>
+<div class="dialog" *ngIf="isOpen" (click)="onClose($event)">
+  <section class="dialog__content">
+    <h3 class="dialog__text">
+      Are you sure?
+    </h3>
+    <div class="dialog__actions">
+      <button class="btn">Yes</button>
+      <button class="btn" (click)="onClose($event)">No</button>
+    </div>
+  </section>
+</div>
