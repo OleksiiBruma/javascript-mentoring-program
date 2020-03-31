@@ -1,4 +1,4 @@
-import { SET_FILTER_TERM } from "../actions/actionTypes";
+import { SET_FILTER_TERM } from "../constants/actionTypes";
 
 export default (state = "", { type, payload }) => {
   switch (type) {

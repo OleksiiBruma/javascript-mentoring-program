@@ -2,9 +2,9 @@ import {
   LOGIN_ERROR,
   RESET_ERROR,
   LOAD_COURSES_ERROR
-} from "../actions/actionTypes";
+} from "../constants/actionTypes";
 
-export default (state = null, { type, payload }) => {
+export default (state = "", { type, payload }) => {
   switch (type) {
     case LOGIN_ERROR:
       return payload;

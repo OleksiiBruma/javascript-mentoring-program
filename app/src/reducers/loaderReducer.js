@@ -1,4 +1,4 @@
-import { SHOW_LOADER, HIDE_LOADER } from "../actions/actionTypes";
+import { SHOW_LOADER, HIDE_LOADER } from "../constants/actionTypes";
 
 export default (state = false, { type }) => {
   switch (type) {
