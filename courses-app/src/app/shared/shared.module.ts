@@ -5,6 +5,8 @@ import { CourseCardComponent } from "./course-card/course-card.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 import { FooterComponent } from "./footer/footer.component";
 import { DialogComponent } from "./dialog/dialog.component";
+import { LoginFormComponent } from "./login-form/login-form.component";
+import { SearchBarComponent } from "./search-bar/search-bar.component";
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { DialogComponent } from "./dialog/dialog.component";
     CourseCardComponent,
     NavigationComponent,
     FooterComponent,
-    DialogComponent
+    DialogComponent,
+    LoginFormComponent,
+    SearchBarComponent
   ],
   imports: [CommonModule],
   exports: [
@@ -20,7 +24,9 @@ import { DialogComponent } from "./dialog/dialog.component";
     CourseCardComponent,
     NavigationComponent,
     FooterComponent,
-    DialogComponent
+    DialogComponent,
+    LoginFormComponent,
+    SearchBarComponent
   ]
 })
 export class SharedModule {}
