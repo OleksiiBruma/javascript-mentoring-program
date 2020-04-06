@@ -6,5 +6,7 @@ import { Component, Input } from "@angular/core";
   styleUrls: ["./course-list.component.sass"]
 })
 export class CourseListComponent {
-  @Input() courses: [];
+  @Input() coursesToShow: [
+    { title: string; duration: string; date: string; description: string }
+  ];
 }

@@ -7,7 +7,7 @@ import { Component } from "@angular/core";
 })
 export class AppComponent {
   title = "courses-app";
-  courses = [
+  allCourses = [
     {
       title: "JavaScript",
       duration: "1 hour 28 minutes",
@@ -63,4 +63,15 @@ export class AppComponent {
       reactive web apps with the successor of Angular.js`
     }
   ];
+  coursesToShow = this.allCourses;
+  setCoursesToShow(searchTerm: string) {
+    this.coursesToShow = this.allCourses.filter(course =>
+      searchTerm
+        ? course.title.toLowerCase().includes(searchTerm.toLowerCase())
+        : true
+    );
+  }
+  onSearch(searchTerm: string) {
+    this.setCoursesToShow(searchTerm);
+  }
 }

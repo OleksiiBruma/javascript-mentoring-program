@@ -7,3 +7,27 @@ body
 h1,h2,p
     padding: 0
     margin: 0
+.btn
+    background: none
+    border: 1px solid black
+    border-radius: 3px
+    min-width: 130px
+    height: 30px
+    padding: 0
+    cursor: pointer
+    &[disabled]
+        color: grey
+        border: 1px solid grey
+        cursor: not-allowed
+
+.input
+    border-radius: 3px
+    height: 28px
+    border: 1px solid black
+    padding: 0 0 0 10px
+    &--error
+        border: 1px solid red
+
+    &__error
+        color: red
+        padding-left: 20px

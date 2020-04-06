@@ -1,7 +1,9 @@
 <main class="container">
   <div class="full-height">
     <app-navigation></app-navigation>
-    <app-courses [courses]="courses"></app-courses>
+    <app-login-form></app-login-form>
+    <app-search-bar (onSearch)="onSearch($event)"></app-search-bar>
+    <app-course-list [coursesToShow]="coursesToShow"> </app-course-list>
   </div>
   <app-footer></app-footer>
 </main>

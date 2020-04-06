@@ -6,8 +6,6 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./courses.component.sass"]
 })
 export class CoursesComponent implements OnInit {
-  @Input() courses: [];
-
   constructor() {}
 
   ngOnInit(): void {}

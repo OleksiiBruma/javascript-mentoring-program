@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CourseListComponent } from "./course-list/course-list.component";
 import { CourseCardComponent } from "./course-card/course-card.component";
 import { NavigationComponent } from "./navigation/navigation.component";
@@ -18,7 +19,7 @@ import { SearchBarComponent } from "./search-bar/search-bar.component";
     LoginFormComponent,
     SearchBarComponent
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
     CourseListComponent,
     CourseCardComponent,
