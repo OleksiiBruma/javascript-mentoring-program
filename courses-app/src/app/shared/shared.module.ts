@@ -8,6 +8,10 @@ import { FooterComponent } from "./footer/footer.component";
 import { DialogComponent } from "./dialog/dialog.component";
 import { LoginFormComponent } from "./login-form/login-form.component";
 import { SearchBarComponent } from "./search-bar/search-bar.component";
+import { EditFormComponent } from "./edit-form/edit-form.component";
+import { MaterialModule } from "./material/material.module";
+import { TransferListComponent } from './transfer-list/transfer-list.component';
+import { DurationPipe } from './duration.pipe';
 
 @NgModule({
   declarations: [
@@ -17,9 +21,12 @@ import { SearchBarComponent } from "./search-bar/search-bar.component";
     FooterComponent,
     DialogComponent,
     LoginFormComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    EditFormComponent,
+    TransferListComponent,
+    DurationPipe
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
   exports: [
     CourseListComponent,
     CourseCardComponent,
@@ -27,7 +34,8 @@ import { SearchBarComponent } from "./search-bar/search-bar.component";
     FooterComponent,
     DialogComponent,
     LoginFormComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    EditFormComponent
   ]
 })
 export class SharedModule {}

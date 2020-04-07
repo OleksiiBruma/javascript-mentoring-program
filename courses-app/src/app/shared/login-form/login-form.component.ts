@@ -23,7 +23,6 @@ export class LoginFormComponent {
     return this.loginForm.get("login");
   }
   get password() {
-    console.log(this.loginForm.get("password"));
     return this.loginForm.get("password");
   }
 

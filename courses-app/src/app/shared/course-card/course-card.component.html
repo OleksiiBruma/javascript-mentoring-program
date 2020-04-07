@@ -2,7 +2,9 @@
   <div class="course-card__information-wrapper">
     <div class="course-card__information">
       <h2 class="course-card__title">{{ course.title }}</h2>
-      <span class="course-card__duration">{{ course.duration }}</span>
+      <span class="course-card__duration"
+        >{{ course.duration | duration }}</span
+      >
       <span class="course-card__date">{{ course.date }}</span>
     </div>
     <p class="course-card__description">

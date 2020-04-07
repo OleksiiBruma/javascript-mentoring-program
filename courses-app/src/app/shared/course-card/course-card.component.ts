@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 interface courseCard {
   title: string;
-  duration: string;
+  duration: number;
   date: string;
   description: string;
 }

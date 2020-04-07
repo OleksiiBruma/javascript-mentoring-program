@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 @Component({
   selector: "app-navigation",
@@ -6,5 +6,6 @@ import { Component } from "@angular/core";
   styleUrls: ["./navigation.component.sass"]
 })
 export class NavigationComponent {
+  @Input() courseToEdit;
   userName = "user1";
 }

@@ -1,0 +1,38 @@
+<div class="lists">
+  <div class="list">
+    <p
+      (click)="selectLeftItem(listItem)"
+      class="list__item"
+      *ngFor="let listItem of leftItems"
+      [ngClass]="{'list__item--selected': listItem === selectedItemLeft}"
+    >
+      {{listItem}}
+    </p>
+  </div>
+  <div class="controls">
+    <button
+      class="btn controls__button"
+      (click)="addToRightList(); doInput()"
+      type="button"
+    >
+      >
+    </button>
+    <button
+      class="btn  controls__button"
+      (click)="addToLeftList(); doInput()"
+      type="button"
+    >
+      <
+    </button>
+  </div>
+  <div class="list" [ngClass]="{'list--error': !rightItems.length}">
+    <p
+      (click)="selectRightItem(listItem)"
+      class="list__item"
+      *ngFor="let listItem of rightItems"
+      [ngClass]="{'list__item--selected': listItem === selectedItemRight}"
+    >
+      {{listItem}}
+    </p>
+  </div>
+</div>
