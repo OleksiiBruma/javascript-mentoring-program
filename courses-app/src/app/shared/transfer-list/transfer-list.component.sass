@@ -1,0 +1,35 @@
+.controls
+    height: 100px
+    padding: 0 10px
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-self: flex-start
+    &__button
+        margin-top: 10px
+        min-width: unset
+        width: 50px
+.lists 
+    display: flex
+    flex-direction: row
+    align-items: flex-start
+    width: 100%
+.list 
+    width: 100%
+    min-height: 50px
+    border: 1px solid black
+    border-radius: 3px
+    padding: 5px
+    display: flex
+    flex-direction: column
+    &--error
+        border: 1px solid red
+    &__item
+        padding: 10px
+        cursor: pointer
+        border: 1px solid white
+        &--selected
+            border: 1px solid black
+            border-radius: 3px
+        &:hover
+            background: lightgrey

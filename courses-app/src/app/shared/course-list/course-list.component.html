@@ -1,10 +1,9 @@
-<section>
-  <div class="searchbar">
-    <input class="searchbar__input" placeholder="Search by title" type="text" />
-    <button class="btn">Search</button>
-    <button class="btn searchbar__right">Add course</button>
-  </div>
-  <section *ngFor="let course of courses">
-    <app-course-card [course]="course"></app-course-card>
-  </section>
-</section>
+<p *ngIf="!coursesToShow.length; else courses">
+  Nothing to show :(
+</p>
+<ng-template #courses>
+  <app-course-card
+    *ngFor="let course of coursesToShow"
+    [course]="course"
+  ></app-course-card>
+</ng-template>

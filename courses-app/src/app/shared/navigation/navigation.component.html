@@ -1,6 +1,12 @@
 <nav class="nav">
   <div class="logo"></div>
   <span class="logo__title">Logo</span>
+  <span class="pagination"
+    ><a href="#">Courses</a> >
+    <span *ngIf="courseToEdit.title ; else newCourse"
+      >{{courseToEdit.title}}</span
+    ><ng-template #newCourse>New Course</ng-template></span
+  >
   <div class="nav__auth">
     <span class="nav__user-name">{{userName}}</span>
     <a class="nav__logoff" href="#">logoff</a>

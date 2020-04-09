@@ -1,0 +1,114 @@
+<section>
+  <form [formGroup]="editCourseForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="c30">
+        <label for="title">Title</label>
+      </div>
+      <div class="c70">
+        <input
+          formControlName="title"
+          id="title"
+          [ngClass]="{'input--error': title.invalid && (title.dirty || title.touched)}"
+          class="input"
+          type="text"
+          name="title"
+          required
+        />
+        <span
+          *ngIf="title.invalid && (title.dirty || title.touched)"
+          class="input__error"
+        >
+          <span *ngIf="title.errors.required">* enter</span>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="c30">
+        <label for="description">Description</label>
+      </div>
+      <div class="c70">
+        <textarea
+          rows="5"
+          cols="40"
+          formControlName="description"
+          id="description"
+          [ngClass]="{'input--error': description.invalid && (description.dirty || description.touched)}"
+          class="input input--textarea"
+          type="text"
+          name="description"
+          required
+        ></textarea>
+        <span
+          *ngIf="description.invalid && (description.dirty || description.touched)"
+          class="input__error"
+        >
+          <span *ngIf="description.errors.required">* enter</span>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="c30">
+        <label for="date">Date</label>
+      </div>
+      <div class="c70">
+        <input
+          class="input"
+          formControlName="date"
+          matInput
+          [ngClass]="{'input--error': date.invalid && (date.dirty || date.touched)}"
+          [matDatepicker]="picker"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+    </div>
+    <div class="row">
+      <div class="c30">
+        <label for="duration">Duration</label>
+      </div>
+      <div class="c70">
+        <input
+          min="1"
+          rows="5"
+          cols="40"
+          formControlName="duration"
+          id="duration"
+          [ngClass]="{'input--error': duration.invalid && (duration.dirty || duration.touched)}"
+          class="input input--small"
+          type="number"
+          name="duration"
+          required
+        />
+        <span class="duration">
+          {{duration.value | duration}}
+        </span>
+        <span
+          *ngIf="duration.invalid && (duration.dirty || duration.touched)"
+          class="input__error"
+        >
+          <span *ngIf="duration.errors.required">* enter</span>
+        </span>
+      </div>
+    </div>
+    <div class="row row--start">
+      <div class="c30">List of authors</div>
+      <app-transfer-list
+        class="c70"
+        formControlName="authors"
+        [fullList]="allAuthors"
+        [selectedList]="authors.value"
+      ></app-transfer-list>
+    </div>
+    <div class="row">
+      <div class="c30"></div>
+      <div class="c70">
+        <button class="btn" [disabled]="!editCourseForm.valid" type="submit">
+          Save
+        </button>
+        <button class="btn btn--left">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
