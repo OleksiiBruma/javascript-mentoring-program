@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "src/auth/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login-form",
@@ -7,6 +9,9 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
   styleUrls: ["./login-form.component.sass"]
 })
 export class LoginFormComponent {
+  isLoading = false;
+  error: string = null;
+  constructor(private authService: AuthService, private router: Router) {}
   loginForm = new FormGroup({
     login: new FormControl("", [
       Validators.required,
@@ -27,6 +32,18 @@ export class LoginFormComponent {
   }
 
   onSubmit() {
-    alert(JSON.stringify(this.loginForm.value, null, 2));
+    this.isLoading = true;
+    this.authService
+      .login(this.loginForm.value.login, this.loginForm.value.password)
+      .subscribe(
+        resData => {
+          this.isLoading = false;
+          this.router.navigate(["/courses"]);
+        },
+        errorMessage => {
+          this.error = errorMessage;
+          this.isLoading = false;
+        }
+      );
   }
 }

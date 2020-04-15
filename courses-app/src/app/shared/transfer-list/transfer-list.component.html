@@ -25,7 +25,10 @@
       <
     </button>
   </div>
-  <div class="list" [ngClass]="{'list--error': !rightItems.length}">
+  <div
+    class="list"
+    [ngClass]="{'list--error': newSelectedList.invalid && (newSelectedList.dirty || newSelectedList.touched)}"
+  >
     <p
       (click)="selectRightItem(listItem)"
       class="list__item"

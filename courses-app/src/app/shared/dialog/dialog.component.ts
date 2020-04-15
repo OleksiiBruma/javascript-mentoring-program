@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-dialog",
@@ -7,7 +7,11 @@ import { Component, Input } from "@angular/core";
 })
 export class DialogComponent {
   @Input() buttonText;
+  @Output() submit = new EventEmitter();
   isOpen = false;
+  onSubmit() {
+    this.submit.emit();
+  }
 
   onClick() {
     this.isOpen = true;

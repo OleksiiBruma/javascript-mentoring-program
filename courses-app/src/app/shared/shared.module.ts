@@ -10,8 +10,11 @@ import { LoginFormComponent } from "./login-form/login-form.component";
 import { SearchBarComponent } from "./search-bar/search-bar.component";
 import { EditFormComponent } from "./edit-form/edit-form.component";
 import { MaterialModule } from "./material/material.module";
-import { TransferListComponent } from './transfer-list/transfer-list.component';
-import { DurationPipe } from './duration.pipe';
+import { RouterModule } from "@angular/router";
+import { TransferListComponent } from "./transfer-list/transfer-list.component";
+import { DurationPipe } from "./duration.pipe";
+import { LoadingSpinnerComponent } from "./loading-spinner/loading-spinner.component";
+import { AlertComponent } from "./alert/alert.component";
 
 @NgModule({
   declarations: [
@@ -24,9 +27,17 @@ import { DurationPipe } from './duration.pipe';
     SearchBarComponent,
     EditFormComponent,
     TransferListComponent,
-    DurationPipe
+    DurationPipe,
+    LoadingSpinnerComponent,
+    AlertComponent
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    RouterModule
+  ],
   exports: [
     CourseListComponent,
     CourseCardComponent,
@@ -35,7 +46,9 @@ import { DurationPipe } from './duration.pipe';
     DialogComponent,
     LoginFormComponent,
     SearchBarComponent,
-    EditFormComponent
+    EditFormComponent,
+    LoadingSpinnerComponent,
+    AlertComponent
   ]
 })
 export class SharedModule {}

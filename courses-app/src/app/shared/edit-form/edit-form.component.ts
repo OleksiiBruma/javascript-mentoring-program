@@ -1,42 +1,39 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Course } from "src/core/course.model";
+import { CoursesService } from "src/core/courses.service";
 
 @Component({
   selector: "app-edit-form",
   templateUrl: "./edit-form.component.html",
   styleUrls: ["./edit-form.component.sass"]
 })
-export class EditFormComponent implements OnInit {
-  @Input() courseToEdit: any;
+export class EditFormComponent {
   ngOnInit() {
-    this.editCourseForm.patchValue({
-      ...this.courseToEdit,
-      date: new Date(this.courseToEdit.date)
-    });
+    if (this.currentCourse)
+      this.editCourseForm.patchValue({
+        ...this.currentCourse,
+        date: new Date(this.currentCourse.date)
+      });
   }
-  allAuthors = [
-    "author1",
-    "author2",
-    "author3",
-    "author4",
-    "author5",
-    "author6"
-  ];
-  selectedAuthors = [];
+  @Input() currentCourse;
+  @Input() allAuthors;
+  @Input() pageType;
+  @Output() formUpdate = new EventEmitter<Course>();
 
   editCourseForm = new FormGroup({
-    title: new FormControl("", Validators.required),
+    name: new FormControl("", Validators.required),
     description: new FormControl("", Validators.required),
     duration: new FormControl("", Validators.required),
     date: new FormControl(new Date(), Validators.required),
     authors: new FormControl([], Validators.required)
   });
   onSubmit() {
-    alert(JSON.stringify(this.editCourseForm.value, null, 2));
+    this.formUpdate.emit(this.editCourseForm.value);
   }
 
-  get title() {
-    return this.editCourseForm.get("title");
+  get name() {
+    return this.editCourseForm.get("name");
   }
   get description() {
     return this.editCourseForm.get("description");

@@ -2,7 +2,7 @@
   <form
     class="searchbar__form"
     #searchForm="ngForm"
-    (ngSubmit)="onFormSubmit(searchForm.value)"
+    (ngSubmit)="onFormSubmit(searchForm.value.query)"
   >
     <input
       class="input searchbar__input"
@@ -13,5 +13,7 @@
     />
     <button class="btn" type="submit">Search</button>
   </form>
-  <button class="btn searchbar__right">Add course</button>
+  <button routerLink="/courses/new" class="btn searchbar__right">
+    Add course
+  </button>
 </div>

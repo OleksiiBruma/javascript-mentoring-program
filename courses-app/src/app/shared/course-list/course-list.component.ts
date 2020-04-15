@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-course-list",
@@ -6,7 +6,10 @@ import { Component, Input } from "@angular/core";
   styleUrls: ["./course-list.component.sass"]
 })
 export class CourseListComponent {
-  @Input() coursesToShow: [
-    { title: string; duration: string; date: string; description: string }
-  ];
+  @Input() courses;
+  @Output() delete = new EventEmitter();
+
+  onDeleteCourse(id) {
+    this.delete.emit(id);
+  }
 }

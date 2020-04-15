@@ -1,14 +1,11 @@
 <nav class="nav">
-  <div class="logo"></div>
-  <span class="logo__title">Logo</span>
-  <span class="pagination"
-    ><a href="#">Courses</a> >
-    <span *ngIf="courseToEdit.title ; else newCourse"
-      >{{courseToEdit.title}}</span
-    ><ng-template #newCourse>New Course</ng-template></span
+  <span routerLink="/courses" class="logo__title">#stay-at-home</span>
+  <span class="pagination" *ngIf="courseTitle">
+    <a routerLink="/courses">Courses</a>
+    > <span>{{ courseTitle }}</span></span
   >
-  <div class="nav__auth">
+  <div class="nav__auth" *ngIf="isAuthenticated">
     <span class="nav__user-name">{{userName}}</span>
-    <a class="nav__logoff" href="#">logoff</a>
+    <a class="nav__logoff " (click)="onLogout()">logoff</a>
   </div>
 </nav>

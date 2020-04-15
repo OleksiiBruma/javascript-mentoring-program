@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { CoursesService } from "src/core/courses.service";
 
 @Component({
   selector: "app-search-bar",
@@ -7,9 +7,10 @@ import { FormGroup } from "@angular/forms";
   styleUrls: ["./search-bar.component.sass"]
 })
 export class SearchBarComponent {
-  @Output() onSearch = new EventEmitter<string>();
-  query: "";
-  onFormSubmit(value: { query: string }) {
-    this.onSearch.emit(value.query);
+  query: string;
+  @Output() search = new EventEmitter<any>();
+  constructor() {}
+  onFormSubmit(value: string) {
+    this.search.emit(value);
   }
 }
