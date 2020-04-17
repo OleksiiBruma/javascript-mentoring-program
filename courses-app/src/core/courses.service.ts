@@ -14,7 +14,6 @@ export class CoursesService {
     return this.courseApiService.fetchCourses();
   }
   filterCourses(query: string) {
-    debugger;
     return this.courseApiService
       .fetchCourses()
       .pipe(
