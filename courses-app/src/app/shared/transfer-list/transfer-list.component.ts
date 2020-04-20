@@ -20,6 +20,7 @@ import {
 export class TransferListComponent implements OnInit, ControlValueAccessor {
   @Input() fullList: [string];
   @Input() selectedList: [string];
+
   public newSelectedList = new FormControl([]);
   private onChange: ([]) => void;
   private onTouched: () => void;

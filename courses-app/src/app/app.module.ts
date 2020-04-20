@@ -4,13 +4,20 @@ import { FormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { LoginComponent } from "./pages/login/login.component";
-import { CoursesComponent } from "./pages/courses/courses.component";
 import { SharedModule } from "./shared/shared.module";
+import { AuthModule } from "src/auth/auth.module";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CoursesComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, SharedModule],
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule,
+    SharedModule,
+    AuthModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

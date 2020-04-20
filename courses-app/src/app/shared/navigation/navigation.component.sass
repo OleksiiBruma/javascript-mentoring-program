@@ -17,33 +17,12 @@
     height: 60px
     border: 1px solid black
     position: relative
-    &:before
-        position: absolute
-        top: 0
-        left: 0
-        transform-origin: left
-        transform: rotate(45deg) 
-        content: ""
-        display: flex
-        border-top: 1px solid black
-        width: 84px
-        animation: spin-left 6s cubic-bezier(.8, 0, .2, 1) infinite
-    &:after
-        position: absolute
-        top: 0
-        left: -24px
-        transform-origin: right
-        transform: rotate(-45deg)
-        content: ""
-        display: flex
-        border-top: 1px solid black
-        width: 84px
-        animation: spin-right 6s cubic-bezier(.8, 0, .2, 1) infinite
     &__title
         font-weight: 800
         font-size: 33px
         margin-left: 20px
         margin-right: auto
+        cursor: pointer
 @keyframes spin-left
     50% 
         transform: rotate(180deg) 

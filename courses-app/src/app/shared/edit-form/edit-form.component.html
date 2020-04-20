@@ -6,19 +6,19 @@
       </div>
       <div class="c70">
         <input
-          formControlName="title"
-          id="title"
-          [ngClass]="{'input--error': title.invalid && (title.dirty || title.touched)}"
+          formControlName="name"
+          id="name"
+          [ngClass]="{'input--error': name.invalid && (name.dirty || name.touched)}"
           class="input"
           type="text"
-          name="title"
+          name="name"
           required
         />
         <span
-          *ngIf="title.invalid && (title.dirty || title.touched)"
+          *ngIf="name.invalid && (name.dirty || name.touched)"
           class="input__error"
         >
-          <span *ngIf="title.errors.required">* enter</span>
+          <span *ngIf="name.errors.required">* enter</span>
         </span>
       </div>
     </div>
@@ -90,7 +90,7 @@
         </span>
       </div>
     </div>
-    <div class="row row--start">
+    <div class="row row--start" *ngIf="allAuthors">
       <div class="c30">List of authors</div>
       <app-transfer-list
         class="c70"
@@ -105,7 +105,7 @@
         <button class="btn" [disabled]="!editCourseForm.valid" type="submit">
           Save
         </button>
-        <button class="btn btn--left">
+        <button class="btn btn--left" type="button" routerLink="/courses">
           Cancel
         </button>
       </div>

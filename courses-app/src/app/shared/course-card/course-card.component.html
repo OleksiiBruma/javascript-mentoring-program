@@ -1,18 +1,23 @@
 <section class="course-card">
   <div class="course-card__information-wrapper">
     <div class="course-card__information">
-      <h2 class="course-card__title">{{ course.title }}</h2>
+      <h2 class="course-card__title">{{ course.name }}</h2>
       <span class="course-card__duration"
         >{{ course.duration | duration }}</span
       >
-      <span class="course-card__date">{{ course.date }}</span>
+      <span class="course-card__date"
+        >{{ course.date | date: 'dd.MM.yyyy' }}</span
+      >
     </div>
     <p class="course-card__description">
       {{ course.description }}
     </p>
   </div>
   <div class="course-card__actions">
-    <button class="btn">Edit course</button>
-    <app-dialog [buttonText]="buttonText"> </app-dialog>
+    <button [routerLink]="['/courses', course.id ]" class="btn">
+      Edit course
+    </button>
+    <app-dialog (submit)="deleteCourse(course.id)" [buttonText]="buttonText">
+    </app-dialog>
   </div>
 </section>
