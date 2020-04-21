@@ -22,11 +22,21 @@
       ]
     },
     {
-      "id": "90ab29a0-83e4-11ea-96e3-53cc03ee3abd",
-      "name": "course1",
-      "description": "description ",
-      "duration": 9,
-      "date": "2020-04-01T21:00:00.000Z",
+      "id": "6ddb5210-83e9-11ea-96e3-53cc03ee3abd",
+      "name": "new",
+      "description": "description",
+      "duration": 3,
+      "date": "2020-04-07T21:00:00.000Z",
+      "authors": [
+        "Esther Kamatari"
+      ]
+    },
+    {
+      "id": "d7fadf70-83ea-11ea-96e3-53cc03ee3abd",
+      "name": "ngrx",
+      "description": "switchMap",
+      "duration": 8,
+      "date": "2020-04-10T21:00:00.000Z",
       "authors": [
         "Patricia Aakhus"
       ]
