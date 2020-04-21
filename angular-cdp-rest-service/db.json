@@ -11,24 +11,24 @@
   ],
   "courses": [
     {
-      "id": "d02ac090-7f52-11ea-a02b-6bb6ba16c186",
-      "name": "23423443534534",
-      "description": "sdf3234",
-      "duration": 17,
-      "date": "2020-04-15T19:53:36.848Z",
+      "id": "cd522c60-8348-11ea-96e3-53cc03ee3abd",
+      "name": "fgh",
+      "description": "fghfghfghfgh",
+      "duration": 11,
+      "date": "2020-04-20T20:52:02.281Z",
       "authors": [
         "Esther Kamatari",
         "Patricia Aakhus"
       ]
     },
     {
-      "id": "a4fba5f0-7f53-11ea-a02b-6bb6ba16c186",
-      "name": "sdkjdskjsdsdf",
-      "description": "dfvlqadfi pv;adis f",
-      "duration": 36,
-      "date": "2020-04-10T21:00:00.000Z",
+      "id": "90ab29a0-83e4-11ea-96e3-53cc03ee3abd",
+      "name": "course1",
+      "description": "description ",
+      "duration": 9,
+      "date": "2020-04-01T21:00:00.000Z",
       "authors": [
-        "Hans Aanrud"
+        "Patricia Aakhus"
       ]
     }
   ],

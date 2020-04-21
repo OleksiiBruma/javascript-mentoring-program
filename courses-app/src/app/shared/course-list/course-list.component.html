@@ -1,9 +1,9 @@
-<p *ngIf="!courses.length; else coursesList">
+<p *ngIf="courses$.length ; else coursesList">
   Nothing to show :(
 </p>
 <ng-template #coursesList>
   <app-course-card
-    *ngFor="let course of courses"
+    *ngFor="let course of courses$ | async"
     [course]="course"
     (delete)="onDeleteCourse($event)"
   ></app-course-card>

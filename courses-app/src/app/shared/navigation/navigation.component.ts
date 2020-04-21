@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { AuthService } from "src/auth/auth.service";
 import { Subscription } from "rxjs";
+import { Store } from "@ngrx/store";
+import {
+  selectCurrentCourse,
+  selectPageType
+} from "src/app/pages/courses/+state/courses.selectors";
 
 @Component({
   selector: "app-navigation",
@@ -11,8 +16,7 @@ export class NavigationComponent implements OnInit {
   isAuthenticated = false;
   userName: string = null;
   private userSub: Subscription;
-  constructor(private authService: AuthService) {}
-  @Input() courseTitle: string;
+  constructor(private authService: AuthService, private store: Store) {}
   ngOnInit() {
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
@@ -27,4 +31,6 @@ export class NavigationComponent implements OnInit {
   onLogout() {
     this.authService.logout();
   }
+  pageType$ = this.store.select(selectPageType);
+  currentCourse$ = this.store.select(selectCurrentCourse);
 }

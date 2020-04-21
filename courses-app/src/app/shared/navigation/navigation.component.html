@@ -1,8 +1,11 @@
 <nav class="nav">
   <span routerLink="/courses" class="logo__title">#stay-at-home</span>
-  <span class="pagination" *ngIf="courseTitle">
+  <span class="pagination" *ngIf="pageType$ | async as pageType ">
     <a routerLink="/courses">Courses</a>
-    > <span>{{ courseTitle }}</span></span
+    >
+    <span *ngIf="currentCourse$ | async as course ; else new"
+      >{{ course.name }}</span
+    ><ng-template #new><span> new </span></ng-template></span
   >
   <div class="nav__auth" *ngIf="isAuthenticated">
     <span class="nav__user-name">{{userName}}</span>

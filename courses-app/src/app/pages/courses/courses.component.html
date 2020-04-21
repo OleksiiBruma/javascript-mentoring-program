@@ -1,8 +1,5 @@
-<app-navigation [courseTitle]="courseTitle"></app-navigation>
-<app-search-bar (search)="onSearch($event)"></app-search-bar>
-<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+<app-search-bar></app-search-bar>
 <app-course-list
-  *ngIf="!loading"
-  [courses]="courses"
-  (delete)="deleteCourse($event)"
+  [courses$]="courses$"
+  (delete)="onDeleteCourse($event)"
 ></app-course-list>

@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter, OnInit } from "@angular/core";
-import { CoursesService } from "src/core/courses.service";
-
+import { Component } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { setFilterTerm } from "src/app/pages/courses/+state/courses.actions";
 @Component({
   selector: "app-search-bar",
   templateUrl: "./search-bar.component.html",
@@ -8,9 +8,11 @@ import { CoursesService } from "src/core/courses.service";
 })
 export class SearchBarComponent {
   query: string;
-  @Output() search = new EventEmitter<any>();
-  constructor() {}
+  constructor(private store: Store) {}
   onFormSubmit(value: string) {
-    this.search.emit(value);
+    this.store.dispatch(setFilterTerm({ query: value }));
+  }
+  ngOnDestroy() {
+    this.store.dispatch(setFilterTerm({ query: "" }));
   }
 }

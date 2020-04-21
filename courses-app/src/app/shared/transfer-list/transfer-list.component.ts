@@ -53,7 +53,7 @@ export class TransferListComponent implements OnInit, ControlValueAccessor {
   rightItems: string[];
   ngOnInit() {
     this.leftItems = this.not(this.fullList, this.selectedList);
-    this.rightItems = this.selectedList;
+    this.rightItems = [...this.selectedList];
   }
   selectedItemLeft = "";
   selectedItemRight = "";
