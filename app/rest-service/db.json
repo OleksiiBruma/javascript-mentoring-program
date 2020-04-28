@@ -7,21 +7,6 @@
   ],
   "courses": [
     {
-      "id": "9194cd00-5426-11ea-84a5-ede0b1d41e27",
-      "name": "sdfsdf",
-      "description": "sdfsdf",
-      "date": "2020-02-20T21:18:32.722Z",
-      "duration": "3",
-      "authors": [
-        "Esther Kamatari",
-        "Patricia Aakhus",
-        "Hans Aanrud",
-        "David Aaron",
-        "Rachel Aaron",
-        "Ben Aaronovitch "
-      ]
-    },
-    {
       "id": "4f2cbfb0-5695-11ea-9dee-1f5f95ba71ba",
       "name": "bjkfjbksdfjkbsdf",
       "description": "kjbsdjbkfsjdbf",
@@ -49,6 +34,16 @@
         "David Aaron",
         "Rachel Aaron",
         "Ben Aaronovitch "
+      ]
+    },
+    {
+      "id": "8f467830-8984-11ea-b8dc-633c4b7a2599",
+      "name": "dfg",
+      "description": "dfgdfg",
+      "date": "2020-04-28T19:14:54.829Z",
+      "duration": "15",
+      "authors": [
+        "Esther Kamatari"
       ]
     }
   ],

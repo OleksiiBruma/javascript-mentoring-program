@@ -11,7 +11,7 @@ fastify.post("/api/login", async (request, reply) => {
     .get("users")
     .find(request.body)
     .value();
- 
+
   if (user) {
     return {};
   } else {

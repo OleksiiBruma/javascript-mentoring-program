@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "fastify": "^2.11.0",
+    "fastify-cors": "^3.0.1",
+    "lowdb": "^1.0.0",
+    "uuid": "^3.4.0",
     "@date-io/date-fns": "^1.3.13",
     "@material-ui/core": "^4.9.1",
     "@material-ui/icons": "^4.9.1",
@@ -28,10 +32,13 @@
     "reselect": "^4.0.0"
   },
   "scripts": {
+    "start:all": "yarn start && yarn start:db",
+    "start:db": "node rest-service/index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "serve": "firebase serve --only hosting && yarn start:db"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -47,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3"
   }
 }
