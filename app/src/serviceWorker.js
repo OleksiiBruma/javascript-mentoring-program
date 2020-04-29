@@ -54,10 +54,56 @@ export function register(config) {
   }
 }
 
+const applicationServerPublicKey =
+  "BBwFg8yMCVkNHMRK5Xes4v4M09hIY6Uoaeb2xE3noFcFb2BU_5ewU0vg9Q6hlIK3SAvafWEkHZzJqUkopxL6bNE";
+
+function urlB64ToUint8Array(base64String) {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, "+")
+    .replace(/_/g, "/");
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+function subscribeUser(registration) {
+  const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+  registration.pushManager
+    .subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: applicationServerKey
+    })
+    .then(function(subscription) {
+      console.log("User is subscribed.");
+    })
+    .catch(function(err) {
+      console.log("Failed to subscribe the user: ", err);
+    });
+}
+
+function getSubscription(registration) {
+  registration.pushManager.getSubscription().then(function(sub) {
+    if (sub === null) {
+      subscribeUser(registration);
+      console.log("Not subscribed to push service!");
+    } else {
+      // We have a subscription, update the database
+      console.log("Subscription object: ", sub);
+    }
+  });
+}
+
 function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
+      getSubscription(registration);
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
