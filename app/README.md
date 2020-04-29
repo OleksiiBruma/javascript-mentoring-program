@@ -21,4 +21,6 @@ Build the project
 
 Runs the app in the production mode.<br />
 Open [http://localhost:5000](http://localhost:5000) to view it in the browser.<br />
-The rest-server will be available in [http://localhost:3001](http://localhost:3001)
+The rest-server will be available in [http://localhost:3001](http://localhost:3001) <br />
+
+workbox has been configured according to the following tutorial https://dev.to/divyansh7924/customizing-workbox-with-create-react-app-1ada
