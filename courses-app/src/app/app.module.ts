@@ -7,6 +7,12 @@ import { AppComponent } from "./app.component";
 import { SharedModule } from "./shared/shared.module";
 import { AuthModule } from "src/auth/auth.module";
 import { HttpClientModule } from "@angular/common/http";
+import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "../environments/environment";
+import { EffectsModule } from "@ngrx/effects";
+import { StoreRouterConnectingModule, RouterState } from "@ngrx/router-store";
+import { reducers } from "./store";
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +22,14 @@ import { HttpClientModule } from "@angular/common/http";
     AppRoutingModule,
     FormsModule,
     SharedModule,
-    AuthModule
+    AuthModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
+    StoreRouterConnectingModule.forRoot(),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

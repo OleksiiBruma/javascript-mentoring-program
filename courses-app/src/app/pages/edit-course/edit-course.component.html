@@ -1,11 +1,4 @@
-<app-navigation [courseTitle]="courseTitle"></app-navigation>
-<app-alert *ngIf="error">{{ error }}</app-alert>
 <app-edit-form
-  *ngIf="!loading"
   [allAuthors]="allAuthors"
   (formUpdate)="onSubmit($event)"
-  [currentCourse]="currentCourse"
-  [pageType]="pageType"
 ></app-edit-form>
-
-<app-loading-spinner *ngIf="loading"></app-loading-spinner>

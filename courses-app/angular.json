@@ -129,6 +129,7 @@
   },
   "defaultProject": "courses-app",
   "cli": {
-    "analytics": "12d1bd49-4b58-4fce-960f-e70353165f70"
+    "defaultCollection": "@ngrx/schematics",
+    "analytics": "cc61f5b2-c1f4-472c-b00d-b34123526745"
   }
 }

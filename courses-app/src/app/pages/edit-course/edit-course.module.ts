@@ -6,12 +6,12 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { AuthGuard } from "src/auth/auth.guard";
 const editRoute = [
   {
-    path: "courses/:id",
+    path: "courses/new",
     canActivate: [AuthGuard],
     component: EditCourseComponent
   },
   {
-    path: "courses/new",
+    path: "courses/:id",
     canActivate: [AuthGuard],
     component: EditCourseComponent
   }

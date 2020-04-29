@@ -1,9 +1,7 @@
 import { Injectable } from "@angular/core";
 import { CoursesApiService } from "./courses-api.service";
-import { map, catchError } from "rxjs/operators";
-import { Course } from "./course.model";
-import { throwError } from "rxjs";
-import { HttpErrorResponse } from "@angular/common/http";
+import { map } from "rxjs/operators";
+import { ICourse } from "../app/models/course.model";
 
 @Injectable({
   providedIn: "root"
@@ -20,7 +18,7 @@ export class CoursesService {
         map(courses => courses.filter(course => course.name.includes(query)))
       );
   }
-  createCourse(newCourse: Course) {
+  createCourse(newCourse: ICourse) {
     return this.courseApiService.createCourses(newCourse);
   }
   getAuthors() {
@@ -29,7 +27,7 @@ export class CoursesService {
   deleteCourse(id: string) {
     return this.courseApiService.deleteCourse(id);
   }
-  editCourse(course: Course, id: string) {
+  editCourse(course: ICourse, id: string) {
     return this.courseApiService.editCourse(course, id);
   }
   getCourseById(id: string) {

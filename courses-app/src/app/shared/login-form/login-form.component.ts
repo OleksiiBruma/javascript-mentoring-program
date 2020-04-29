@@ -13,11 +13,11 @@ export class LoginFormComponent {
   error: string = null;
   constructor(private authService: AuthService, private router: Router) {}
   loginForm = new FormGroup({
-    login: new FormControl("", [
+    login: new FormControl("user", [
       Validators.required,
       Validators.pattern(/^[a-zA-Z]+$/)
     ]),
-    password: new FormControl("", [
+    password: new FormControl("qwerty123", [
       Validators.required,
       Validators.pattern(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/),
       Validators.minLength(6)

@@ -6,10 +6,10 @@ import { Component, Input, Output, EventEmitter } from "@angular/core";
   styleUrls: ["./course-list.component.sass"]
 })
 export class CourseListComponent {
-  @Input() courses;
+  @Input() courses$;
   @Output() delete = new EventEmitter();
 
-  onDeleteCourse(id) {
+  onDeleteCourse(id: string) {
     this.delete.emit(id);
   }
 }

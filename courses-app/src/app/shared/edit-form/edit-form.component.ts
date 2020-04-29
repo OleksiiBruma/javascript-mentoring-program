@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Course } from "src/core/course.model";
+import { ICourse } from "src/app/models/course.model";
 import { CoursesService } from "src/core/courses.service";
+import { selectCurrentCourse } from "src/app/pages/courses/+state/courses.selectors";
+import { select, Store } from "@ngrx/store";
 
 @Component({
   selector: "app-edit-form",
@@ -9,17 +11,20 @@ import { CoursesService } from "src/core/courses.service";
   styleUrls: ["./edit-form.component.sass"]
 })
 export class EditFormComponent {
+  constructor(private store: Store) {}
   ngOnInit() {
-    if (this.currentCourse)
-      this.editCourseForm.patchValue({
-        ...this.currentCourse,
-        date: new Date(this.currentCourse.date)
-      });
+    this.store.pipe(select(selectCurrentCourse)).subscribe(currentCourse => {
+      if (currentCourse) {
+        this.editCourseForm.patchValue({
+          ...currentCourse,
+          date: new Date(currentCourse.date)
+        });
+      }
+    });
   }
-  @Input() currentCourse;
   @Input() allAuthors;
   @Input() pageType;
-  @Output() formUpdate = new EventEmitter<Course>();
+  @Output() formUpdate = new EventEmitter<ICourse>();
 
   editCourseForm = new FormGroup({
     name: new FormControl("", Validators.required),

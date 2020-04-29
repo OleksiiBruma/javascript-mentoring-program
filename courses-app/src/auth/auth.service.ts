@@ -46,7 +46,6 @@ export class AuthService {
   }
   handleError(errorResponse: HttpErrorResponse) {
     let errorMessage = "An unkknown error occured!";
-    console.log(errorResponse.error.message);
     if (!errorResponse.error || !errorResponse.error.message) {
       return throwError(errorMessage);
     }
