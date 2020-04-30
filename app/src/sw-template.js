@@ -53,6 +53,14 @@ if (typeof importScripts === "function") {
         ]
       })
     );
+    self.addEventListener("push", event => {
+      console.log("push received");
+      const title = "New notification for you";
+      const options = {
+        body: event.data.text()
+      };
+      event.waitUntil(self.registration.showNotification(title, options));
+    });
   } else {
     console.log("Workbox could not be loaded. No Offline support");
   }

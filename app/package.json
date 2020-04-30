@@ -35,12 +35,11 @@
   "scripts": {
     "start:db": "node rest-service/index.js",
     "start": "react-scripts start | yarn start:db",
-    "build": "react-scripts build && yarn build-sw && yarn clean-cra-sw",
+    "build": "react-scripts build && yarn build-sw",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve": "serve -s build | yarn start:db",
-    "build-sw": "node ./src/sw-build.js",
-    "clean-cra-sw": "rm -f build/precache-manifest.*.js && rm -f build/service-worker.js"
+    "build-sw": "node ./src/sw-build.js"
   },
   "eslintConfig": {
     "extends": "react-app"
