@@ -1,0 +1,36 @@
+<ActionBar>
+  <label text="Courses"></label>
+</ActionBar>
+<StackLayout orientation="vertical">
+  <SearchBar
+    hint="Enter search term here ..."
+    [text]="searchPhrase"
+    (clear)="onClear($event)"
+    (submit)="onSubmit($event)"
+  >
+  </SearchBar>
+  <ListView height="100%" [items]="items">
+    <ng-template let-item="item">
+      <StackLayout>
+        <FlexboxLayout flexDirection="row" width="100%">
+          <image
+            [src]="item.pictureURL"
+            width="20%"
+            stretch="aspectFill"
+          ></image>
+          <FlexboxLayout width="55%" flexDirection="column">
+            <label
+              textWrap="true"
+              [nsRouterLink]="['../item', item.id]"
+              [text]="item.title"
+            ></label>
+            <label textWrap="true" [text]="item.description"></label>
+            <label [text]="item.duration"></label>
+            <label [text]="item.date"></label>
+          </FlexboxLayout>
+          <button text="Edit" [nsRouterLink]="['../item', item.id]"></button>
+        </FlexboxLayout>
+      </StackLayout>
+    </ng-template>
+  </ListView>
+</StackLayout>
