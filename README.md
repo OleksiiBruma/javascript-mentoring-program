@@ -1,9 +1,5 @@
+cd coursesapp;
 
-JavaScript Mentoring Program. Intermediate 4
+npm i;
 
-
-Contains following modules/branches
-
-- react  ;
-- angular;
-- pwa    ;
+tns preview;
