@@ -3,20 +3,18 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NativeScriptFormsModule } from "nativescript-angular";
 
 @NgModule({
-    bootstrap: [
-        AppComponent
-    ],
-    imports: [
-        NativeScriptModule,
-        AppRoutingModule
-    ],
-    declarations: [
-        AppComponent
-    ],
-    schemas: [
-        NO_ERRORS_SCHEMA
-    ]
+  bootstrap: [AppComponent],
+  imports: [
+    NativeScriptModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    NativeScriptFormsModule,
+  ],
+  declarations: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

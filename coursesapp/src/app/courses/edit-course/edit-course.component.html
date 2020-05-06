@@ -1,0 +1,126 @@
+<ActionBar>
+  <NavigationButton
+    (tap)="onBackTap()"
+    android.systemIcon="ic_menu_back"
+  ></NavigationButton>
+  <label [text]="titleBar"></label>
+  <ActionItem
+    *ngIf="isEditCourseState"
+    (tap)="onDelete()"
+    ios.systemIcon="16"
+    ios.position="right"
+    text="Delete course"
+    android.systemIcon="ic_menu_delete"
+    android.position="actionBar"
+  ></ActionItem>
+</ActionBar>
+
+<ScrollView>
+  <StackLayout>
+    <form [formGroup]="editCourseForm">
+      <label class="title" text="Title"> </label>
+      <TextField
+        formControlName="title"
+        id="title"
+        name="title"
+        autocorrect="false"
+        required
+      >
+      </TextField>
+      <label
+        *ngIf="title.invalid &&  title.errors.required && (title.dirty || title.touched)"
+        class="error"
+        text="* enter"
+      >
+      </label>
+      <label class="title" text="Description"> </label>
+      <TextView
+        text="tvtext"
+        formControlName="description"
+        id="description"
+        name="description"
+      >
+      </TextView>
+      <label
+        *ngIf="description.invalid &&  description.errors.required && (description.dirty || description.touched)"
+        class="error"
+        text="* enter"
+      >
+      </label>
+      <label class="title" text="Picture link"> </label>
+      <TextField
+        formControlName="pictureURL"
+        id="pictureURL"
+        name="pictureURL"
+        autocorrect="false"
+        required
+      >
+      </TextField>
+      <label
+        *ngIf="pictureURL.invalid &&  pictureURL.errors.required && (pictureURL.dirty || pictureURL.touched)"
+        class="error"
+        text="* enter"
+      >
+      </label>
+      <label
+        *ngIf="pictureURL.invalid &&  pictureURL.errors.pattern && (pictureURL.dirty || pictureURL.touched)"
+        class="error"
+        text="* invalid url"
+      >
+      </label>
+      <label class="title" text="Duration in minutes"> </label>
+      <TextField
+        formControlName="duration"
+        id="duration"
+        name="duration"
+        autocorrect="false"
+        required
+        keyboardType="number"
+      >
+      </TextField>
+      <label
+        *ngIf="duration.invalid &&  duration.errors.required && (duration.dirty || duration.touched)"
+        class="error"
+        text="* enter"
+      >
+      </label>
+      <label
+        *ngIf="duration.invalid &&  duration.errors.pattern && (duration.dirty || duration.touched)"
+        class="error"
+        text="* please use only numbers"
+      >
+      </label>
+      <label class="title" text="Date"> </label>
+      <TextField
+        hint="01.12.2020"
+        maxlength="10"
+        formControlName="date"
+        id="date"
+        name="date"
+        autocorrect="false"
+        required
+        keyboardType="number"
+      >
+      </TextField>
+      <label
+        *ngIf="date.invalid &&  date.errors.required && (date.dirty || date.touched)"
+        class="error"
+        text="* enter"
+      >
+      </label>
+      <label
+        *ngIf="date.invalid &&  date.errors.pattern && (date.dirty || date.touched)"
+        class="error"
+        text="* incorrect date type"
+      >
+      </label>
+      <button
+        text="Save"
+        (tap)="onSubmit()"
+        [isEnabled]="editCourseForm.valid"
+      ></button>
+
+      <button text="Cancel" (tap)="onBackTap()" type="button"></button>
+    </form>
+  </StackLayout>
+</ScrollView>

@@ -1,5 +1,14 @@
 <ActionBar>
   <label text="Courses"></label>
+  <ActionItem
+    (tap)="onClear()"
+    ios.systemIcon="4"
+    ios.position="right"
+    text="Add course"
+    android.systemIcon="ic_input_add"
+    android.position="actionBar"
+    [nsRouterLink]="['../item', 'new']"
+  ></ActionItem>
 </ActionBar>
 <StackLayout orientation="vertical">
   <SearchBar
@@ -19,16 +28,16 @@
             stretch="aspectFill"
           ></image>
           <FlexboxLayout width="55%" flexDirection="column">
-            <label
-              textWrap="true"
-              [nsRouterLink]="['../item', item.id]"
-              [text]="item.title"
-            ></label>
+            <label textWrap="true" [text]="item.title"></label>
             <label textWrap="true" [text]="item.description"></label>
-            <label [text]="item.duration"></label>
+            <label [text]="item.duration + ' minutes'"></label>
             <label [text]="item.date"></label>
           </FlexboxLayout>
-          <button text="Edit" [nsRouterLink]="['../item', item.id]"></button>
+          <button
+            text="Edit"
+            (tap)="onClear()"
+            [nsRouterLink]="['../item', item.id]"
+          ></button>
         </FlexboxLayout>
       </StackLayout>
     </ng-template>

@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { SearchBar } from "tns-core-modules/ui/search-bar";
-import { DataService, DataItem } from "../shared/data.service";
+import { CoursesService, DataItem } from "../shared/courses.service";
 
 @Component({
   selector: "Courses",
@@ -9,7 +9,7 @@ import { DataService, DataItem } from "../shared/data.service";
 export class CoursesComponent implements OnInit {
   items: Array<DataItem>;
   searchPhrase: string;
-  constructor(private _itemService: DataService) {}
+  constructor(private _itemService: CoursesService) {}
 
   ngOnInit(): void {
     this.items = this._itemService.getItems();
@@ -20,9 +20,8 @@ export class CoursesComponent implements OnInit {
     this.items = this._itemService.filterItems(searchBar.text);
   }
 
-  onClear(args) {
-    const searchBar = args.object as SearchBar;
-    this.searchPhrase = searchBar.text;
+  onClear() {
+    this.searchPhrase = "";
     this.items = this._itemService.getItems();
   }
 }

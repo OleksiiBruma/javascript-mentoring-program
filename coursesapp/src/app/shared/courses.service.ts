@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 export interface DataItem {
-  id: number;
+  id: string;
   title: string;
   description: string;
   pictureURL: string;
@@ -12,10 +12,10 @@ export interface DataItem {
 @Injectable({
   providedIn: "root",
 })
-export class DataService {
+export class CoursesService {
   private items = new Array<DataItem>(
     {
-      id: 1,
+      id: "1",
       title: "Javascript",
       description:
         "Master JavaScript with the most complete course! Projects, challenges, quizzes, JavaScript ES6+, OOP, AJAX, Webpack",
@@ -24,16 +24,16 @@ export class DataService {
       date: "01.02.2020",
     },
     {
-      id: 2,
+      id: "2",
       title: "Vue JS 2 - The Complete Guide",
       description:
         "Vue.js is an awesome JavaScript Framework for building Frontend Applications! VueJS mixes the Best of Angular + React!",
-      pictureURL: " https://img-a.udemycdn.com/course/240x135/995016_ebf4.jpg",
+      pictureURL: "https://img-a.udemycdn.com/course/240x135/995016_ebf4.jpg",
       duration: "1234",
       date: "01.02.2020",
     },
     {
-      id: 3,
+      id: "3",
       title: "React Native - The Practical Guide 2020",
       description:
         "Use React Native and your React knowledge and take your web development skills to build native iOS and Android Apps",
@@ -50,8 +50,19 @@ export class DataService {
   filterItems(text: string): Array<DataItem> {
     return this.items.filter((item) => item.title.includes(text));
   }
-
-  getItem(id: number): DataItem {
+  getItem(id: string): DataItem {
     return this.items.filter((item) => item.id === id)[0];
+  }
+  deleteItem(id: string) {
+    const removeIndex = this.items.map((item) => item.id).indexOf(id);
+    this.items.splice(removeIndex, 1);
+  }
+  addItem(item: any) {
+    const newItem = { ...item, id: Date.now() };
+    this.items.push(newItem);
+  }
+  updateItem(id: string, item) {
+    const updateIndex = this.items.map((item) => item.id).indexOf(id);
+    this.items[updateIndex] = { ...this.items[updateIndex], ...item };
   }
 }
