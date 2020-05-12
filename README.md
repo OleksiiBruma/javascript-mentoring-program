@@ -7,4 +7,5 @@ Contains following modules/branches
 - react  ;
 - angular;
 - pwa    ;
-- nativescript
+- nativescript ;
+- reactnative ;
