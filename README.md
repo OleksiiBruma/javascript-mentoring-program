@@ -1,11 +1,3 @@
-
-JavaScript Mentoring Program. Intermediate 4
-
-
-Contains following modules/branches
-
-- react  ;
-- angular;
-- pwa    ;
-- nativescript ;
-- reactnative ;
+npm i -g expo-cli
+cd coursesapp
+npm start
